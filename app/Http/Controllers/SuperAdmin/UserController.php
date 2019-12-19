@@ -4,6 +4,8 @@ namespace App\Http\Controllers\SuperAdmin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\User;
+use Brian2694\Toastr\Facades\Toastr;
 
 class UserController extends Controller
 {
@@ -14,7 +16,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('superadmin.user.index');
+        $users = User::latest()->get();
+        return view('superadmin.user.index', compact('users'));
     }
 
     /**
@@ -35,7 +38,28 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request,[
+            
+            
+            'role_id' => 'required',
+            'rolename' => 'required',
+            'name' => 'required',
+            'username' => 'required',
+            'email' => 'required',
+            'password' => 'required'
+        ]);
+
+        $user = new User();
+        $user->id = $request->id;
+        $user->role_id = $request->role_id;
+        $user->rolename = $request->rolename;
+        $user->name = $request->name;
+        $user->username = $request->username;
+        $user->email = $request->email;
+        $user->password = bcrypt($request['password']);
+        $user->save();
+        Toastr::success('User Successfully Saved', 'Success');
+        return redirect()->route('superadmin.user.index');
     }
 
     /**
@@ -57,7 +81,8 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = User::find($id);
+        return view('superadmin.user.edit', compact('user'));
     }
 
     /**
@@ -69,7 +94,16 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = User::find($id);
+        $user->role_id = $request->role_id;
+        $user->rolename = $request->rolename;
+        $user->name = $request->name;
+        $user->username = $request->username;
+        $user->email = $request->email;
+        $user->password = bcrypt($request['password']);
+        $user->save();
+        Toastr::success('User Successfully Saved', 'Success');
+        return redirect()->route('superadmin.user.index');
     }
 
     /**
@@ -80,6 +114,8 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        User::find($id)->delete();
+        Toastr::success('User Successfully Deleted','Success');
+        return redirect()->back();
     }
 }

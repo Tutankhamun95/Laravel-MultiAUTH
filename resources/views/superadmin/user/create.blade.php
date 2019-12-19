@@ -194,21 +194,39 @@
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
       <div class="card-header py-3">
-        <form>
+        <form action="{{route('superadmin.user.store')}}" method="POST">
+          {{ csrf_field() }}
                 <div class="form-group">
-                  <label for="exampleInputEmail1">Email address</label>
-                  <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-                  <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                  <label for="role_id">Role ID</label>
+                  <input type="integer" class="form-control" id="role_id" aria-describedby="role_idHelp" placeholder="Role ID" name="role_id">
+                  <small id="emailHelp" class="form-text text-muted">1 for Super Admin, 2 for School Admin, 3 for Student</small>
                 </div>
                 <div class="form-group">
-                  <label for="exampleInputPassword1">Password</label>
-                  <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                  <label for="rolename">Role Name</label>
+                  <input type="text" class="form-control" id="rolename" aria-describedby="rolenameHelp" placeholder="Role Name" name="rolename">
+                  <small id="emailHelp" class="form-text text-muted">Super Admin, School Admin or Student</small>
                 </div>
-                <div class="form-group form-check">
-                  <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                  <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                <div class="form-group">
+                  <label for="name">Full Name</label>
+                  <input type="text" class="form-control" id="name" aria-describedby="nameHelp" placeholder="Name" name="name">
+                  <small id="emailHelp" class="form-text text-muted">Enter Your Full Name.</small>
                 </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <div class="form-group">
+                  <label for="username">Username</label>
+                  <input type="text" class="form-control" id="username" aria-describedby="usernameHelp" placeholder="Username" name="username">
+                  <small id="emailHelp" class="form-text text-muted">Enter a suitable username</small>
+                </div>
+                <div class="form-group">
+                  <label for="email">E-mail</label>
+                  <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="E-mail" name="email">
+                  <small id="emailHelp" class="form-text text-muted">Enter a suitable username</small>
+                </div>
+                <div class="form-group">
+                  <label for="password">Password</label>
+                  <input type="password" class="form-control" id="password" placeholder="Password" name="password">
+                </div>
+                <a class="btn btn-danger" href="{{route('superadmin.school.index')}}">Back</a>
+                <button type="submit" class="btn btn-primary">Save</button>
         </form>
       </div>
     </div>

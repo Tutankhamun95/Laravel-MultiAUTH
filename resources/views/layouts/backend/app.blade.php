@@ -122,7 +122,11 @@
     @endif
 
   </script>
-  
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.5.3/dist/sweetalert2.all.min.js"></script>
+
+
+
 
   @stack('js')
 </body>

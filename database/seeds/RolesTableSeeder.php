@@ -15,16 +15,19 @@ class RolesTableSeeder extends Seeder
         DB::table('roles')->insert([
             'name'=>'SuperAdmin',
             'slug'=>'superadmin',
+            
         ]);
 
         DB::table('roles')->insert([
             'name'=>'SchoolAdmin',
             'slug'=>'schooladmin',
+            
         ]);
 
         DB::table('roles')->insert([
             'name'=>'Student',
             'slug'=>'student',
+            
         ]);
     }
 }

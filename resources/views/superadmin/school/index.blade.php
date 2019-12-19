@@ -206,28 +206,45 @@
           <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
             <thead>
               <tr>
+                {{-- <th>ID</th> --}}
                 <th>Name</th>
                 <th>Address</th>
                 <th>Created At</th>
                 <th>Updated At</th>
+                <th>Action</th>
               </tr>
             </thead>
             <tfoot>
               <tr>
+                {{-- <th>ID</th> --}}
                 <th>Name</th>
                 <th>Address</th>
                 <th>Created At</th>
                 <th>Updated At</th>
+                <th>Action</th>
               </tr>
             </tfoot>
             <tbody>
                 @foreach ($schools as $key=>$school)
 
                   <tr>
-                  <td>{{$key + 1}}</td>
+                  {{-- <td>{{$key + 1}}</td> --}}
                   <td>{{$school->name}}</td>
+                  <td>{{$school->address}}</td>
                   <td>{{$school->created_at}}</td>
                   <td>{{$school->updated_at}}</td>
+                  <td style="text-align:center;">
+                    <a href="{{route('superadmin.school.edit', $school->id)}}" class="btn btn-primary btn-circle">
+                      <i class="fas fa-edit"></i>
+                    </a>
+                      <button onclick="deleteSchool({{$school->id}})"  class="btn btn-primary btn-circle" type="button">
+                        <i class="fas fa-trash"></i>
+                      </button>
+                    <form id="delete-form-{{$school->id}}" action="{{route('superadmin.school.destroy', $school->id)}}" method="POST">
+                      @csrf
+                      @method('DELETE')
+                    </form>
+                    </td>
                   </tr>
                 @endforeach
             </tbody>
@@ -240,7 +257,45 @@
   <!-- /.container-fluid -->
     
 @endsection
+<script type="text/javascript">
+  
+  function deleteSchool(id){
+    const swalWithBootstrapButtons = Swal.mixin({
+customClass: {
+  confirmButton: 'btn btn-success',
+  cancelButton: 'btn btn-danger'
+},
+buttonsStyling: false
+})
 
+swalWithBootstrapButtons.fire({
+title: 'Are you sure?',
+text: "You won't be able to revert this!",
+icon: 'warning',
+showCancelButton: true,
+confirmButtonText: 'Yes, delete it!',
+cancelButtonText: 'No, cancel!',
+reverseButtons: true
+}).then((result) => {
+if (result.value) {
+
+    event.preventDefault();
+    document.getElementById('delete-form-'+id).submit(); 
+  
+} else if (
+  /* Read more about handling dismissals below */
+  result.dismiss === Swal.DismissReason.cancel
+) {
+  swalWithBootstrapButtons.fire(
+    'Cancelled',
+    'Your data file is safe :)',
+    'error'
+  )
+}
+})
+  }
+
+</script>
 @push('js')
 
 

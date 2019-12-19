@@ -13,6 +13,7 @@ class UsersTableSeeder extends Seeder
     {
         DB::table('users')->insert([
             'role_id'=>'1',
+            'rolename'=>'Super Admin',
             'name'=>'AZ.SuperAdmin',
             'username'=>'superadmin',
             'email'=>'super@mail.com',
@@ -22,6 +23,7 @@ class UsersTableSeeder extends Seeder
 
         DB::table('users')->insert([
             'role_id'=>'2',
+            'rolename'=>'School Admin',
             'name'=>'AZ.SchoolAdmin',
             'username'=>'schooladmin',
             'email'=>'admin@mail.com',
@@ -31,10 +33,21 @@ class UsersTableSeeder extends Seeder
 
         DB::table('users')->insert([
             'role_id'=>'3',
+            'rolename'=>'Student',
             'name'=>'AZ.Student',
             'username'=>'student',
             'email'=>'student@mail.com',
             'password'=>bcrypt('rootstudent'),
+
+        ]);
+
+        DB::table('users')->insert([
+            'role_id'=>'3',
+            'rolename'=>'Student',
+            'name'=>'OM.Student',
+            'username'=>'student2',
+            'email'=>'student2@mail.com',
+            'password'=>bcrypt('rootstudent2'),
 
         ]);
     }

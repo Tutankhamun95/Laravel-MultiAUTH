@@ -73,7 +73,8 @@ class SchoolController extends Controller
      */
     public function edit($id)
     {
-        //
+        $school = School::find($id);
+        return view('superadmin.school.edit', compact('school'));
     }
 
     /**
@@ -85,7 +86,13 @@ class SchoolController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $school = School::find($id);
+        $school->name = $request->name;
+        $school->address = $request->address;
+        $school->slug = str_slug($request->name);
+        $school->save();
+        Toastr::success('School Successfully Updated', 'Success');
+        return redirect()->route('superadmin.school.index');
     }
 
     /**
@@ -96,6 +103,8 @@ class SchoolController extends Controller
      */
     public function destroy($id)
     {
-        //
+        School::find($id)->delete();
+        Toastr::success('School Successfully Deleted','Success');
+        return redirect()->back(); 
     }
 }
