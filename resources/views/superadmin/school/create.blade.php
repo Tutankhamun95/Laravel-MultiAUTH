@@ -1,4 +1,18 @@
-<nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+@extends('layouts.backend.app')
+
+@section('title','School')
+
+@push('css')
+
+
+    
+@endpush
+
+@section('content')
+
+<div class="container-fluid">
+
+    <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
     
         <!-- Sidebar Toggle (Topbar) -->
         <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
@@ -171,3 +185,39 @@
 
       </nav>
       <!-- End of Topbar -->
+
+
+
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">Add School</h1>
+
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+      <div class="card-header py-3">
+      <form action="{{route('superadmin.school.store')}}" method="POST">
+        {{ csrf_field() }}
+                <div class="form-group">
+                  <label for="name">Email address</label>
+                  <input type="name" class="form-control" id="name" aria-describedby="nameHelp" placeholder="School Name" name="name">
+                  <small id="emailHelp" class="form-text text-muted">Add School name here ex: Swinburne University of Technology.</small>
+                </div>
+                <div class="form-group">
+                  <label for="address">Address</label>
+                  <input type="text" class="form-control" id="address" placeholder="Address" placeholder="Address" name="address">
+                </div>
+            <a class="btn btn-danger" href="{{route('superadmin.school.index')}}">Back</a>
+                <button type="submit" class="btn btn-primary">Save</button>
+        </form>
+      </div>
+    </div>
+
+  </div>
+  <!-- /.container-fluid -->
+    
+@endsection
+
+@push('js')
+
+
+    
+@endpush

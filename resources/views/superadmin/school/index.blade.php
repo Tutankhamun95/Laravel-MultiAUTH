@@ -1,4 +1,18 @@
-<nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+@extends('layouts.backend.app')
+
+@section('title','School')
+
+@push('css')
+
+
+    
+@endpush
+
+@section('content')
+
+<div class="container-fluid">
+
+    <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
     
         <!-- Sidebar Toggle (Topbar) -->
         <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
@@ -171,3 +185,64 @@
 
       </nav>
       <!-- End of Topbar -->
+
+
+
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">Schools</h1>
+
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+      <div class="card-header py-3">
+        <a href="{{route('superadmin.school.create')}}" class="btn btn-success btn-icon-split">
+          <span class="icon text-white-50">
+            <i class="fas fa-plus"></i>
+          </span>
+          <span class="text">Add School</span>
+        </a>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Address</th>
+                <th>Created At</th>
+                <th>Updated At</th>
+              </tr>
+            </thead>
+            <tfoot>
+              <tr>
+                <th>Name</th>
+                <th>Address</th>
+                <th>Created At</th>
+                <th>Updated At</th>
+              </tr>
+            </tfoot>
+            <tbody>
+                @foreach ($schools as $key=>$school)
+
+                  <tr>
+                  <td>{{$key + 1}}</td>
+                  <td>{{$school->name}}</td>
+                  <td>{{$school->created_at}}</td>
+                  <td>{{$school->updated_at}}</td>
+                  </tr>
+                @endforeach
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <!-- /.container-fluid -->
+    
+@endsection
+
+@push('js')
+
+
+    
+@endpush

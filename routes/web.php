@@ -22,6 +22,8 @@ Auth::routes();
 Route::group(['as'=>'superadmin.','prefix'=>'superadmin','namespace'=>'SuperAdmin','middleware'=>['auth','superadmin']], function 
 (){
     Route::get('dashboard','DashboardController@index')->name('dashboard');
+    Route::resource('school', 'SchoolController');
+    Route::resource('user', 'UserController');
 });
 
 Route::group(['as'=>'schooladmin.','prefix'=>'schooladmin','namespace'=>'SchoolAdmin','middleware'=>['auth','schooladmin']], function 
