@@ -1,6 +1,6 @@
 @extends('layouts.backend.app')
 
-@section('title','Users')
+@section('title','Readings')
 
 @push('css')
   
@@ -189,16 +189,17 @@
       <!-- End of Topbar -->
 
     <!-- Page Heading -->
-    <h1 class="h3 mb-2 text-gray-800">Users</h1>
+    <h1 class="h3 mb-2 text-gray-800">All Posts</h1>
+    <p>Total Posts:<span class="text-primary"> {{$readings->count()}}</span></p>
 
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
       <div class="card-header py-3">
-        <a href="{{route('superadmin.user.create')}}" class="btn btn-success btn-icon-split">
+        <a href="{{route('superadmin.reading.create')}}" class="btn btn-success btn-icon-split">
             <span class="icon text-white-50">
               <i class="fas fa-plus"></i>
             </span>
-            <span class="text">Add User</span>
+            <span class="text">Add Reading</span>
           </a>
       </div>
       <div class="card-body">
@@ -206,10 +207,12 @@
           <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
             <thead>
               <tr>
-                <th>Name</th>
-                <th>Role Name</th>
-                <th>Posts</th>
-                <th>Username</th>
+                <th>ID</th>
+                <th>Title</th>
+                <th>Author</th>
+                <th>DOI</th>
+                <th>Year</th>
+                <th>Type</th>
                 <th>Created At</th>
                 <th>Updated At</th>
                 <th>Action</th>
@@ -217,36 +220,39 @@
             </thead>
             <tfoot>
               <tr>
-                <th>Name</th>
-                <th>Role Name</th>
-                <th>Projects</th>
-                <th>Username</th>
-                <th>Created At</th>
-                <th>Updated At</th>
-                <th>Action</th>
+                  <th>ID</th>
+                  <th>Title</th>
+                  <th>Author</th>
+                  <th>DOI</th>
+                  <th>Year</th>
+                  <th>Type</th>
+                  <th>Created At</th>
+                  <th>Updated At</th>
+                  <th>Action</th>
               </tr>
             </tfoot>
             <tbody>
-                @foreach ($users as $key=>$user)
+                @foreach ($readings as $key=>$reading)
 
                   <tr>
-                  {{-- <td>{{$key + 1}}</td> --}}
-                  <td>{{$user->name}}</td>
-                  <td>{{$user->rolename}}</td>
-                  <td>{{$user->projects->count()}}</td>
-                  <td>{{$user->username}}</td>
-                  <td>{{$user->created_at}}</td>
-                  <td>{{$user->updated_at}}</td>
+                  <td>{{$key + 1}}</td>
+                  <td>{{str_limit($project->title,'15')}}</td>
+                  <td>{{$reading->user->name}}</td>
+                  <td>{{$project->DOI}}</td>
+                  <td>{{$project->year}}</td>
+                  <td>{{$project->type}}</td>
+                  <td>{{$project->created_at}}</td>
+                  <td>{{$project->updated_at}}</td>
                   <td style="text-align:center;">
-                  <a href="{{route('superadmin.user.edit', $user->id)}}" class="btn btn-primary btn-circle">
+                  <a href="{{route('superadmin.reading.edit', $reading->id)}}" class="btn btn-primary btn-circle">
                     <i class="fas fa-edit"></i>
                   </a>
                   </td>
                   <td style="text-align:center;">
-                    <button onclick="deleteUser({{$user->id}})"  class="btn btn-primary btn-circle" type="button">
+                    <button onclick="deleteUser({{$reading->id}})"  class="btn btn-primary btn-circle" type="button">
                       <i class="fas fa-trash"></i>
                     </button>
-                  <form id="delete-form-{{$user->id}}" action="{{route('superadmin.user.destroy', $user->id)}}" method="POST">
+                  <form id="delete-form-{{$reading->id}}" action="{{route('superadmin.reading.destroy', $reading->id)}}" method="POST">
                     @csrf
                     @method('DELETE')
                   </form>
@@ -265,7 +271,7 @@
 @endsection
 <script type="text/javascript">
   
-  function deleteUser(id){
+  function deleteReading(id){
     const swalWithBootstrapButtons = Swal.mixin({
 customClass: {
   confirmButton: 'btn btn-success',

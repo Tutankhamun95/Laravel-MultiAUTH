@@ -1,13 +1,11 @@
 @extends('layouts.backend.app')
 
-@section('title','Users')
+@section('title','User')
 
 @push('css')
-  
-  <!-- Custom styles for this page -->
-    <!-- Custom styles for this template -->
 
 
+    
 @endpush
 
 @section('content')
@@ -188,74 +186,49 @@
       </nav>
       <!-- End of Topbar -->
 
+
+
     <!-- Page Heading -->
-    <h1 class="h3 mb-2 text-gray-800">Users</h1>
+    <h1 class="h3 mb-2 text-gray-800">Edit User</h1>
 
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
       <div class="card-header py-3">
-        <a href="{{route('superadmin.user.create')}}" class="btn btn-success btn-icon-split">
-            <span class="icon text-white-50">
-              <i class="fas fa-plus"></i>
-            </span>
-            <span class="text">Add User</span>
-          </a>
-      </div>
-      <div class="card-body">
-        <div class="table-responsive">
-          <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Role Name</th>
-                <th>Posts</th>
-                <th>Username</th>
-                <th>Created At</th>
-                <th>Updated At</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tfoot>
-              <tr>
-                <th>Name</th>
-                <th>Role Name</th>
-                <th>Projects</th>
-                <th>Username</th>
-                <th>Created At</th>
-                <th>Updated At</th>
-                <th>Action</th>
-              </tr>
-            </tfoot>
-            <tbody>
-                @foreach ($users as $key=>$user)
-
-                  <tr>
-                  {{-- <td>{{$key + 1}}</td> --}}
-                  <td>{{$user->name}}</td>
-                  <td>{{$user->rolename}}</td>
-                  <td>{{$user->projects->count()}}</td>
-                  <td>{{$user->username}}</td>
-                  <td>{{$user->created_at}}</td>
-                  <td>{{$user->updated_at}}</td>
-                  <td style="text-align:center;">
-                  <a href="{{route('superadmin.user.edit', $user->id)}}" class="btn btn-primary btn-circle">
-                    <i class="fas fa-edit"></i>
-                  </a>
-                  </td>
-                  <td style="text-align:center;">
-                    <button onclick="deleteUser({{$user->id}})"  class="btn btn-primary btn-circle" type="button">
-                      <i class="fas fa-trash"></i>
-                    </button>
-                  <form id="delete-form-{{$user->id}}" action="{{route('superadmin.user.destroy', $user->id)}}" method="POST">
-                    @csrf
-                    @method('DELETE')
-                  </form>
-                  </td>
-                  </tr>
-                @endforeach
-            </tbody>
-          </table>
-        </div>
+        <form action="{{route('superadmin.user.update', $user->id)}}" method="POST">
+          {{ csrf_field() }}
+            @method('put')
+                <div class="form-group">
+                  <label for="role_id">Role ID</label>
+                  <input type="integer" class="form-control" id="role_id" aria-describedby="role_idHelp" placeholder="Role ID" name="role_id" value="{{$user->role_id}}">
+                  <small id="emailHelp" class="form-text text-muted">1 for Super Admin, 2 for School Admin, 3 for Student</small>
+                </div>
+                <div class="form-group">
+                  <label for="rolename">Role Name</label>
+                  <input type="text" class="form-control" id="rolename" aria-describedby="rolenameHelp" placeholder="Role Name" name="rolename" value="{{$user->rolename}}">
+                  <small id="emailHelp" class="form-text text-muted">Super Admin, School Admin or Student</small>
+                </div>
+                <div class="form-group">
+                  <label for="name">Full Name</label>
+                  <input type="text" class="form-control" id="name" aria-describedby="nameHelp" placeholder="Name" name="name" value="{{$user->name}}">
+                  <small id="emailHelp" class="form-text text-muted">Enter Your Full Name.</small>
+                </div>
+                <div class="form-group">
+                  <label for="username">Username</label>
+                  <input type="text" class="form-control" id="username" aria-describedby="usernameHelp" placeholder="Username" name="username" value="{{$user->username}}">
+                  <small id="emailHelp" class="form-text text-muted">Enter a suitable username</small>
+                </div>
+                <div class="form-group">
+                  <label for="email">E-mail</label>
+                  <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="E-mail" name="email" value="{{$user->email}}">
+                  <small id="emailHelp" class="form-text text-muted">Enter a suitable username</small>
+                </div>
+                <div class="form-group">
+                  <label for="password">Password</label>
+                  <input type="password" class="form-control" id="password" placeholder="Password" name="password" value="{{$user->password}}">
+                </div>
+                <a class="btn btn-danger" href="{{route('superadmin.user.index')}}">Back</a>
+                <button type="submit" class="btn btn-primary">Save</button>
+        </form>
       </div>
     </div>
 
@@ -263,48 +236,8 @@
   <!-- /.container-fluid -->
     
 @endsection
-<script type="text/javascript">
-  
-  function deleteUser(id){
-    const swalWithBootstrapButtons = Swal.mixin({
-customClass: {
-  confirmButton: 'btn btn-success',
-  cancelButton: 'btn btn-danger'
-},
-buttonsStyling: false
-})
-
-swalWithBootstrapButtons.fire({
-title: 'Are you sure?',
-text: "You won't be able to revert this!",
-icon: 'warning',
-showCancelButton: true,
-confirmButtonText: 'Yes, delete it!',
-cancelButtonText: 'No, cancel!',
-reverseButtons: true
-}).then((result) => {
-if (result.value) {
-
-    event.preventDefault();
-    document.getElementById('delete-form-'+id).submit(); 
-  
-} else if (
-  /* Read more about handling dismissals below */
-  result.dismiss === Swal.DismissReason.cancel
-) {
-  swalWithBootstrapButtons.fire(
-    'Cancelled',
-    'Your data file is safe :)',
-    'error'
-  )
-}
-})
-  }
-
-</script>
 
 @push('js')
-  
 
 
     

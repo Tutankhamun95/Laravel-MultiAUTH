@@ -41,6 +41,18 @@
                     <i class="fas fa-fw fa-school"></i>
                     <span>Schools</span></a>
                 </li>
+
+                <li class="nav-item{{Request::is('superadmin/project*') ? ' active' : ''}}">
+                  <a class="nav-link" href="{{route('superadmin.project.index')}}">
+                    <i class="fas fa-fw fa-book"></i>
+                    <span>Projects</span></a>
+                </li>
+
+                <li class="nav-item{{Request::is('superadmin/reading*') ? ' active' : ''}}">
+                  <a class="nav-link" href="{{route('superadmin.reading.index')}}">
+                    <i class="fas fa-fw fa-book"></i>
+                    <span>Readings</span></a>
+                </li>
             
         @endif
   

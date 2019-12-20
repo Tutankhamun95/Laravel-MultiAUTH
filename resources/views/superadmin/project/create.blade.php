@@ -1,13 +1,11 @@
 @extends('layouts.backend.app')
 
-@section('title','Users')
+@section('title','Create')
 
 @push('css')
-  
-  <!-- Custom styles for this page -->
-    <!-- Custom styles for this template -->
 
 
+    
 @endpush
 
 @section('content')
@@ -188,74 +186,38 @@
       </nav>
       <!-- End of Topbar -->
 
+
+
     <!-- Page Heading -->
-    <h1 class="h3 mb-2 text-gray-800">Users</h1>
+    <h1 class="h3 mb-2 text-gray-800">Create Project</h1>
 
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
       <div class="card-header py-3">
-        <a href="{{route('superadmin.user.create')}}" class="btn btn-success btn-icon-split">
-            <span class="icon text-white-50">
-              <i class="fas fa-plus"></i>
-            </span>
-            <span class="text">Add User</span>
-          </a>
-      </div>
-      <div class="card-body">
-        <div class="table-responsive">
-          <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Role Name</th>
-                <th>Posts</th>
-                <th>Username</th>
-                <th>Created At</th>
-                <th>Updated At</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tfoot>
-              <tr>
-                <th>Name</th>
-                <th>Role Name</th>
-                <th>Projects</th>
-                <th>Username</th>
-                <th>Created At</th>
-                <th>Updated At</th>
-                <th>Action</th>
-              </tr>
-            </tfoot>
-            <tbody>
-                @foreach ($users as $key=>$user)
-
-                  <tr>
-                  {{-- <td>{{$key + 1}}</td> --}}
-                  <td>{{$user->name}}</td>
-                  <td>{{$user->rolename}}</td>
-                  <td>{{$user->projects->count()}}</td>
-                  <td>{{$user->username}}</td>
-                  <td>{{$user->created_at}}</td>
-                  <td>{{$user->updated_at}}</td>
-                  <td style="text-align:center;">
-                  <a href="{{route('superadmin.user.edit', $user->id)}}" class="btn btn-primary btn-circle">
-                    <i class="fas fa-edit"></i>
-                  </a>
-                  </td>
-                  <td style="text-align:center;">
-                    <button onclick="deleteUser({{$user->id}})"  class="btn btn-primary btn-circle" type="button">
-                      <i class="fas fa-trash"></i>
-                    </button>
-                  <form id="delete-form-{{$user->id}}" action="{{route('superadmin.user.destroy', $user->id)}}" method="POST">
-                    @csrf
-                    @method('DELETE')
-                  </form>
-                  </td>
-                  </tr>
-                @endforeach
-            </tbody>
-          </table>
-        </div>
+        <form action="{{route('superadmin.project.store')}}" method="POST">
+          {{ csrf_field() }}
+                <div class="form-group">
+                  <label for="title">Project Title</label>
+                  <input type="text" class="form-control" id="title" aria-describedby="titleHelp" placeholder="Title" name="title">
+                  <small id="titleHelp" class="form-text text-muted">Enter Project Title</small>
+                </div>
+                <div class="form-group">
+                  <label for="start_date">Start Date</label>
+                  <input type="date" class="form-control" id="start_date" aria-describedby="start_dateHelp" placeholder="Start Date" name="start_date">
+                  <small id="start_dateHelp" class="form-text text-muted">Enter Start Date.</small>
+                </div>
+                <div class="form-group">
+                  <label for="end_date">End Date</label>
+                  <input type="date" class="form-control" id="end_date" aria-describedby="end_dateHelp" placeholder="End Date" name="end_date">
+                  <small id="end_dateHelp" class="form-text text-muted">Enter End Date.</small>
+                </div>
+                <div class="form-group">
+                    <label for="publish">Publish</label>
+                    <input type="checkbox" class="form-control" id="publish" aria-describedby="statusHelp" placeholder="Status" name="status" value="1">
+                  </div>
+                <a class="btn btn-danger" href="{{route('superadmin.project.index')}}">Back</a>
+                <button type="submit" class="btn btn-primary">Save</button>
+        </form>
       </div>
     </div>
 
@@ -263,48 +225,8 @@
   <!-- /.container-fluid -->
     
 @endsection
-<script type="text/javascript">
-  
-  function deleteUser(id){
-    const swalWithBootstrapButtons = Swal.mixin({
-customClass: {
-  confirmButton: 'btn btn-success',
-  cancelButton: 'btn btn-danger'
-},
-buttonsStyling: false
-})
-
-swalWithBootstrapButtons.fire({
-title: 'Are you sure?',
-text: "You won't be able to revert this!",
-icon: 'warning',
-showCancelButton: true,
-confirmButtonText: 'Yes, delete it!',
-cancelButtonText: 'No, cancel!',
-reverseButtons: true
-}).then((result) => {
-if (result.value) {
-
-    event.preventDefault();
-    document.getElementById('delete-form-'+id).submit(); 
-  
-} else if (
-  /* Read more about handling dismissals below */
-  result.dismiss === Swal.DismissReason.cancel
-) {
-  swalWithBootstrapButtons.fire(
-    'Cancelled',
-    'Your data file is safe :)',
-    'error'
-  )
-}
-})
-  }
-
-</script>
 
 @push('js')
-  
 
 
     
