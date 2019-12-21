@@ -208,10 +208,9 @@
               <tr>
                 <th>Name</th>
                 <th>Role Name</th>
-                <th>Posts</th>
+                <th>Projects</th>
                 <th>Username</th>
-                <th>Created At</th>
-                <th>Updated At</th>
+                <th>Approval</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -221,8 +220,7 @@
                 <th>Role Name</th>
                 <th>Projects</th>
                 <th>Username</th>
-                <th>Created At</th>
-                <th>Updated At</th>
+                <th>Approval</th>
                 <th>Action</th>
               </tr>
             </tfoot>
@@ -235,6 +233,21 @@
                   <td>{{$user->role->name}}</td>
                   <td>{{$user->projects->count()}}</td>
                   <td>{{$user->username}}</td>
+                  <td>
+                    @if ($user->approval == 0 && $user->role_id == 1)
+                    <span class="text-success">Admins Dont Need Approval</span>
+                    @else
+                    @if ($user->approval == 0 && $user->role_id == 2)
+                    <span class="text-success">Admins Dont Need Approval</span>   
+                    @else
+                    @if ($user->approval == 1 && $user->role_id == 3)
+                    <span class="text-success">Approved</span>   
+                    @else
+                    <span class="text-warning">Pending</span>
+                    @endif
+                    @endif
+                    @endif
+                  </td>
                   <td>{{$user->created_at}}</td>
                   <td>{{$user->updated_at}}</td>
                   <td style="text-align:center;">

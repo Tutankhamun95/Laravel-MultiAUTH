@@ -17,7 +17,7 @@ Route::get('/', function () {
 
 Auth::routes();
 
-
+Route::get('/{username}','RegisterController@profile')->name('dashboard');
 
 Route::group(['as'=>'superadmin.','prefix'=>'superadmin','namespace'=>'SuperAdmin','middleware'=>['auth','superadmin']], function 
 (){

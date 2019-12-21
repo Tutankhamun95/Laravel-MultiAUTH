@@ -244,16 +244,16 @@
                   <td>{{$reading->created_at}}</td>
                   <td>{{$reading->updated_at}}</td>
                   <td style="text-align:center;">
-                 <a href="{{route('superadmin.reading.show', $reading->id)}}" class="btn btn-primary btn-circle">
+                 <a href="{{route('student.reading.show', $reading->id)}}" class="btn btn-primary btn-circle">
                       <i class="fas fa-eye"></i>
                   </a>  
-                  <a href="{{route('superadmin.reading.edit', $reading->id)}}" class="btn btn-primary btn-circle">
+                  <a href="{{route('student.reading.edit', $reading->id)}}" class="btn btn-primary btn-circle">
                     <i class="fas fa-edit"></i>
                   </a>
                     <button onclick="deleteReading({{$reading->id}})"  class="btn btn-primary btn-circle" type="button">
                       <i class="fas fa-trash"></i>
                     </button>
-                  <form id="delete-form-{{$reading->id}}" action="{{route('superadmin.reading.destroy', $reading->id)}}" method="POST">
+                  <form id="delete-form-{{$reading->id}}" action="{{route('student.reading.destroy', $reading->id)}}" method="POST">
                     @csrf
                     @method('DELETE')
                   </form>

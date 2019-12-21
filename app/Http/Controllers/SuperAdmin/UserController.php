@@ -19,6 +19,7 @@ class UserController extends Controller
     public function index()
     {
         $users = User::latest()->get();
+        
         return view('superadmin.user.index', compact('users'));
     }
 
@@ -56,6 +57,7 @@ class UserController extends Controller
         $user->role_id = $request->role_id;
         $user->name = $request->name;
         $user->username = $request->username;
+        $user->approval = $request->approval;
         $user->email = $request->email;
         $user->password = bcrypt($request['password']);
         
@@ -89,8 +91,9 @@ class UserController extends Controller
      */
     public function edit($id)
     {
+        $roles = Role::all();
         $user = User::find($id);
-        return view('superadmin.user.edit', compact('user'));
+        return view('superadmin.user.edit', compact('user','roles'));
     }
 
     /**
@@ -106,6 +109,7 @@ class UserController extends Controller
         $user->role_id = $request->role_id;
         $user->name = $request->name;
         $user->username = $request->username;
+        $user->approval = $request->approval;
         $user->email = $request->email;
         $user->password = bcrypt($request['password']);
         $user->save();

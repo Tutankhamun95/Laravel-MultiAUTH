@@ -226,6 +226,10 @@
                   <label for="password">Password</label>
                   <input type="password" class="form-control" id="password" placeholder="Password" name="password" value="{{$user->password}}">
                 </div>
+                <div class="form-group">
+                  <label for="publish">Approval</label>
+                  <input type="checkbox" class="form-control" id="approval" aria-describedby="statusHelp" placeholder="approval" name="approval" value="1">
+                </div>
                 <a class="btn btn-danger" href="{{route('superadmin.user.index')}}">Back</a>
                 <button type="submit" class="btn btn-primary">Save</button>
         </form>

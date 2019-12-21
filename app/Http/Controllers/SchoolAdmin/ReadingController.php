@@ -6,6 +6,7 @@ use App\Reading;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Brian2694\Toastr\Facades\Toastr;
 
 class ReadingController extends Controller
 {

@@ -79,7 +79,7 @@ class ProjectController extends Controller
      */
     public function show(Project $project)
     {
-        //
+        return view('student.project.show',compact('project'));
     }
 
     /**
@@ -90,7 +90,9 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        //
+        $schools = School::all();
+        $members = Member::all();
+        return view('student.project.edit', compact('project','schools', 'members' ));
     }
 
     /**
@@ -102,7 +104,31 @@ class ProjectController extends Controller
      */
     public function update(Request $request, Project $project)
     {
-        //
+        $this->validate($request, [
+            'title' => 'required',
+        ]);
+            $slug = str_slug($request->title);
+            $project->user_id = Auth::id();
+            $project->title = $request->title;
+            $project->slug = $slug;
+            $project->start_date = $request->start_date;
+            $project->end_date = $request->end_date;
+            if(isset($request->status))
+            {
+                $project->status = true;
+            }else{
+                $project->status = false;
+            }
+
+            $project->is_approved = false;
+
+            $project->save();
+
+            $project->schools()->sync($request->schools);
+            $project->members()->sync($request->members);  
+
+            Toastr::success('Project Updated Successfully', 'Success');
+            return redirect()->route('student.project.index');
     }
 
     /**
@@ -113,6 +139,10 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
-        //
+        $project->schools()->detach();
+        $project->members()->detach();
+        $project->delete();
+        Toastr::success('Project Successfully Deleted', 'Success');
+        return redirect()->back();
     }
 }
