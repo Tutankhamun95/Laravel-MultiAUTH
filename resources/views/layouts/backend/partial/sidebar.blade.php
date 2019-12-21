@@ -53,6 +53,12 @@
                     <i class="fas fa-fw fa-book"></i>
                     <span>Readings</span></a>
                 </li>
+
+                <li class="nav-item{{Request::is('superadmin/member*') ? ' active' : ''}}">
+                  <a class="nav-link" href="{{route('superadmin.member.index')}}">
+                    <i class="fas fa-fw fa-book"></i>
+                    <span>Members</span></a>
+                </li>
             
         @endif
   

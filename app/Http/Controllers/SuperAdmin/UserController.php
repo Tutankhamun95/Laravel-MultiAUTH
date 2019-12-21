@@ -5,6 +5,8 @@ namespace App\Http\Controllers\SuperAdmin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
+use App\Role;
+use DB;
 use Brian2694\Toastr\Facades\Toastr;
 
 class UserController extends Controller
@@ -27,7 +29,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('superadmin.user.create');
+        $roles = Role::all();
+        return view('superadmin.user.create' ,compact('roles'));
     }
 
     /**
@@ -42,7 +45,6 @@ class UserController extends Controller
             
             
             'role_id' => 'required',
-            'rolename' => 'required',
             'name' => 'required',
             'username' => 'required',
             'email' => 'required',
@@ -52,14 +54,20 @@ class UserController extends Controller
         $user = new User();
         $user->id = $request->id;
         $user->role_id = $request->role_id;
-        $user->rolename = $request->rolename;
         $user->name = $request->name;
         $user->username = $request->username;
         $user->email = $request->email;
         $user->password = bcrypt($request['password']);
+        
+        
         $user->save();
+        if($request->role_id == '3'){
+            DB::insert('insert into members (name) values(?)',[$user->name]);
+        }
         Toastr::success('User Successfully Saved', 'Success');
         return redirect()->route('superadmin.user.index');
+
+
     }
 
     /**
@@ -96,7 +104,6 @@ class UserController extends Controller
     {
         $user = User::find($id);
         $user->role_id = $request->role_id;
-        $user->rolename = $request->rolename;
         $user->name = $request->name;
         $user->username = $request->username;
         $user->email = $request->email;

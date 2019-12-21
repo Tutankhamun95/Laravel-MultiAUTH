@@ -232,7 +232,7 @@
                   <tr>
                   {{-- <td>{{$key + 1}}</td> --}}
                   <td>{{$user->name}}</td>
-                  <td>{{$user->rolename}}</td>
+                  <td>{{$user->role->name}}</td>
                   <td>{{$user->projects->count()}}</td>
                   <td>{{$user->username}}</td>
                   <td>{{$user->created_at}}</td>

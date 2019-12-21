@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class School extends Model
+class Member extends Model
 {
     public function projects(){
         return $this->belongsToMany('App\Project')->withTimestamps();

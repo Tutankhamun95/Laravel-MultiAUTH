@@ -1,6 +1,6 @@
 @extends('layouts.backend.app')
 
-@section('title','User')
+@section('title','School')
 
 @push('css')
 
@@ -189,34 +189,23 @@
 
 
     <!-- Page Heading -->
-    <h1 class="h3 mb-2 text-gray-800">Add Reading</h1>
+    <h1 class="h3 mb-2 text-gray-800">Add School</h1>
 
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
       <div class="card-header py-3">
-        <form action="{{route('superadmin.reading.store')}}" method="POST">
-          {{ csrf_field() }}
+      <form action="{{route('superadmin.school.store')}}" method="POST">
+        {{ csrf_field() }}
                 <div class="form-group">
-                  <label for="title">Title</label>
-                  <input type="text" class="form-control" id="title" aria-describedby="titleHelp" placeholder="Title" name="title">
-                  <small id="titleHelp" class="form-text text-muted">Enter Reading Title</small>
+                  <label for="name">Email address</label>
+                  <input type="name" class="form-control" id="name" aria-describedby="nameHelp" placeholder="School Name" name="name">
+                  <small id="emailHelp" class="form-text text-muted">Add School name here ex: Swinburne University of Technology.</small>
                 </div>
                 <div class="form-group">
-                  <label for="DOI">DOI</label>
-                  <input type="date" class="form-control" id="DOI" aria-describedby="doiHelp" placeholder="DOI" name="DOI">
-                  <small id="doiHelp" class="form-text text-muted">Enter DOI</small>
+                  <label for="address">Address</label>
+                  <input type="text" class="form-control" id="address" placeholder="Address" placeholder="Address" name="address">
                 </div>
-                <div class="form-group">
-                  <label for="year">Year</label>
-                  <input type="date" class="form-control" id="year" aria-describedby="yearHelp" placeholder="Year" name="year">
-                  <small id="yearHelp" class="form-text text-muted">Enter Year.</small>
-                </div>
-                <div class="form-group">
-                  <label for="type">Type</label>
-                  <input type="text" class="form-control" id="type" aria-describedby="typeHelp" placeholder="Type" name="type">
-                  <small id="typeHelp" class="form-text text-muted">Enter Type of Reading</small>
-                </div>
-                <a class="btn btn-danger" href="{{route('superadmin.reading.index')}}">Back</a>
+            <a class="btn btn-danger" href="{{route('superadmin.school.index')}}">Back</a>
                 <button type="submit" class="btn btn-primary">Save</button>
         </form>
       </div>

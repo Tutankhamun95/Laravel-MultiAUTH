@@ -2,6 +2,7 @@
 
 @section('title','Create')
 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css">
 @push('css')
 
 
@@ -212,6 +213,26 @@
                   <small id="end_dateHelp" class="form-text text-muted">Enter End Date.</small>
                 </div>
                 <div class="form-group">
+                  <label for="exampleFormControlSelect1">Select School</label>
+                  <div class="form-line" {{$errors->has('schools') ? 'focused error' : ''}}>
+                  <select class="form-control" id="exampleFormControlSelect1" name="schools[]" id="category" data-live-search="true">
+                    @foreach ($schools as $school)
+                  <option value="{{$school->id}}">{{$school->name}}</option>    
+                    @endforeach
+                  </select>
+                </div>
+                </div>
+                <div class="form-group">
+                    <label for="exampleFormControlSelect1">Select Members</label>
+                    <div class="form-line" {{$errors->has('members') ? 'focused error' : ''}}>
+                    <select class="form-control" id="exampleFormControlSelect1" name="members[]" id="member" data-live-search="true" multiple>
+                      @foreach ($members as $member)
+                    <option value="{{$member->id}}">{{$member->name}}</option>    
+                      @endforeach
+                    </select>
+                  </div>
+                  </div>
+                <div class="form-group">
                     <label for="publish">Publish</label>
                     <input type="checkbox" class="form-control" id="publish" aria-describedby="statusHelp" placeholder="Status" name="status" value="1">
                   </div>
@@ -225,7 +246,11 @@
   <!-- /.container-fluid -->
     
 @endsection
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/js/bootstrap-select.min.js"></script>
 
+<!-- (Optional) Latest compiled and minified JavaScript translation files -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/js/i18n/defaults-*.min.js"></script>
 @push('js')
 
 

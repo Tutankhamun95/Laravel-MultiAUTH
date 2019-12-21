@@ -1,6 +1,6 @@
 @extends('layouts.backend.app')
 
-@section('title','User')
+@section('title','Projects')
 
 @push('css')
 
@@ -189,47 +189,60 @@
 
 
     <!-- Page Heading -->
-    <h1 class="h3 mb-2 text-gray-800">Edit User</h1>
+    <h1 class="h3 mb-2 text-gray-800">Edit Project</h1>
 
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
       <div class="card-header py-3">
-        <form action="{{route('superadmin.user.update', $user->id)}}" method="POST">
-          {{ csrf_field() }}
-            @method('put')
-                <div class="form-group">
-                  <label for="role_id">Role ID</label>
-                  <input type="integer" class="form-control" id="role_id" aria-describedby="role_idHelp" placeholder="Role ID" name="role_id" value="{{$user->role_id}}">
-                  <small id="emailHelp" class="form-text text-muted">1 for Super Admin, 2 for School Admin, 3 for Student</small>
-                </div>
-                <div class="form-group">
-                  <label for="rolename">Role Name</label>
-                  <input type="text" class="form-control" id="rolename" aria-describedby="rolenameHelp" placeholder="Role Name" name="rolename" value="{{$user->rolename}}">
-                  <small id="emailHelp" class="form-text text-muted">Super Admin, School Admin or Student</small>
-                </div>
-                <div class="form-group">
-                  <label for="name">Full Name</label>
-                  <input type="text" class="form-control" id="name" aria-describedby="nameHelp" placeholder="Name" name="name" value="{{$user->name}}">
-                  <small id="emailHelp" class="form-text text-muted">Enter Your Full Name.</small>
-                </div>
-                <div class="form-group">
-                  <label for="username">Username</label>
-                  <input type="text" class="form-control" id="username" aria-describedby="usernameHelp" placeholder="Username" name="username" value="{{$user->username}}">
-                  <small id="emailHelp" class="form-text text-muted">Enter a suitable username</small>
-                </div>
-                <div class="form-group">
-                  <label for="email">E-mail</label>
-                  <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="E-mail" name="email" value="{{$user->email}}">
-                  <small id="emailHelp" class="form-text text-muted">Enter a suitable username</small>
-                </div>
-                <div class="form-group">
-                  <label for="password">Password</label>
-                  <input type="password" class="form-control" id="password" placeholder="Password" name="password" value="{{$user->password}}">
-                </div>
-                <a class="btn btn-danger" href="{{route('superadmin.user.index')}}">Back</a>
-                <button type="submit" class="btn btn-primary">Save</button>
-        </form>
-      </div>
+          <form action="{{route('superadmin.project.update', $project->id)}}" method="POST">
+              {{ csrf_field() }}
+              @method('PUT')
+                    <div class="form-group">
+                      <label for="title">Project Title</label>
+                    <input type="text" class="form-control" id="title" aria-describedby="titleHelp" placeholder="Title" name="title" value="{{$project->title}}">
+                      <small id="titleHelp" class="form-text text-muted">Enter Project Title</small>
+                    </div>
+                    <div class="form-group">
+                      <label for="start_date">Start Date</label>
+                      <input type="date" class="form-control" id="start_date" aria-describedby="start_dateHelp" placeholder="Start Date" name="start_date" value="{{$project->start_date}}">
+                      <small id="start_dateHelp" class="form-text text-muted">Enter Start Date.</small>
+                    </div>
+                    <div class="form-group">
+                      <label for="end_date">End Date</label>
+                      <input type="date" class="form-control" id="end_date" aria-describedby="end_dateHelp" placeholder="End Date" name="end_date" value="{{$project->end_date}}">
+                      <small id="end_dateHelp" class="form-text text-muted">Enter End Date.</small>
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleFormControlSelect1">Select School</label>
+                      <div class="form-line" {{$errors->has('schools') ? 'focused error' : ''}}>
+                      <select class="form-control" id="exampleFormControlSelect1" name="schools[]" id="category" data-live-search="true" value="{{$project->title}}">
+                        @foreach ($schools as $school)
+                      <option
+                              @foreach ($project->schools as $projectSchool)
+                                {{$projectSchool->id == $school->id ? 'selected' : ''}}   
+                      @endforeach
+                      value="{{$school->id}}">{{$school->name}}</option>   
+                        @endforeach
+                      </select>
+                    </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlSelect1">Select Members</label>
+                        <div class="form-line" {{$errors->has('members') ? 'focused error' : ''}}>
+                        <select class="form-control" id="exampleFormControlSelect1" name="members[]" id="member" data-live-search="true" multiple>
+                          @foreach ($members as $member)
+                        <option value="{{$member->id}}">{{$member->name}}</option>    
+                          @endforeach
+                        </select>
+                      </div>
+                      </div>
+                    <div class="form-group">
+                        <label for="publish">Publish</label>
+                        <input type="checkbox" class="form-control" id="publish" aria-describedby="statusHelp" placeholder="Status" name="status" value="1">
+                      </div>
+                    <a class="btn btn-danger" href="{{route('superadmin.project.index')}}">Back</a>
+                    <button type="submit" class="btn btn-primary">Save</button>
+            </form>      </div>
     </div>
 
   </div>

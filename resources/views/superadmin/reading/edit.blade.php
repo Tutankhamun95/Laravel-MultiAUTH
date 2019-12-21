@@ -1,6 +1,6 @@
 @extends('layouts.backend.app')
 
-@section('title','User')
+@section('title','Projects')
 
 @push('css')
 
@@ -189,47 +189,38 @@
 
 
     <!-- Page Heading -->
-    <h1 class="h3 mb-2 text-gray-800">Edit User</h1>
+    <h1 class="h3 mb-2 text-gray-800">Edit Reading</h1>
 
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
       <div class="card-header py-3">
-        <form action="{{route('superadmin.user.update', $user->id)}}" method="POST">
-          {{ csrf_field() }}
-            @method('put')
-                <div class="form-group">
-                  <label for="role_id">Role ID</label>
-                  <input type="integer" class="form-control" id="role_id" aria-describedby="role_idHelp" placeholder="Role ID" name="role_id" value="{{$user->role_id}}">
-                  <small id="emailHelp" class="form-text text-muted">1 for Super Admin, 2 for School Admin, 3 for Student</small>
+          <form action="{{route('superadmin.reading.update', $reading->id)}}" method="POST">
+              {{ csrf_field() }}
+              @method('PUT')
+              <div class="form-group">
+                  <label for="title">Title</label>
+                  <input type="text" class="form-control" id="title" aria-describedby="titleHelp" placeholder="Title" name="title" value="{{$reading->title}}">
+                  <small id="titleHelp" class="form-text text-muted">Enter Reading Title</small>
                 </div>
                 <div class="form-group">
-                  <label for="rolename">Role Name</label>
-                  <input type="text" class="form-control" id="rolename" aria-describedby="rolenameHelp" placeholder="Role Name" name="rolename" value="{{$user->rolename}}">
-                  <small id="emailHelp" class="form-text text-muted">Super Admin, School Admin or Student</small>
+                  <label for="DOI">DOI</label>
+                  <input type="date" class="form-control" id="DOI" aria-describedby="doiHelp" placeholder="DOI" name="DOI" value="{{$reading->DOI}}">
+                  <small id="doiHelp" class="form-text text-muted">Enter DOI</small>
                 </div>
                 <div class="form-group">
-                  <label for="name">Full Name</label>
-                  <input type="text" class="form-control" id="name" aria-describedby="nameHelp" placeholder="Name" name="name" value="{{$user->name}}">
-                  <small id="emailHelp" class="form-text text-muted">Enter Your Full Name.</small>
+                  <label for="year">Year</label>
+                  <input type="date" class="form-control" id="year" aria-describedby="yearHelp" placeholder="Year" name="year" value="{{$reading->year}}">
+                  <small id="yearHelp" class="form-text text-muted">Enter Year.</small>
                 </div>
                 <div class="form-group">
-                  <label for="username">Username</label>
-                  <input type="text" class="form-control" id="username" aria-describedby="usernameHelp" placeholder="Username" name="username" value="{{$user->username}}">
-                  <small id="emailHelp" class="form-text text-muted">Enter a suitable username</small>
+                  <label for="type">Type</label>
+                  <input type="text" class="form-control" id="type" aria-describedby="typeHelp" placeholder="Type" name="type" value="{{$reading->type}}">
+                  <small id="typeHelp" class="form-text text-muted">Enter Type of Reading</small>
                 </div>
-                <div class="form-group">
-                  <label for="email">E-mail</label>
-                  <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="E-mail" name="email" value="{{$user->email}}">
-                  <small id="emailHelp" class="form-text text-muted">Enter a suitable username</small>
-                </div>
-                <div class="form-group">
-                  <label for="password">Password</label>
-                  <input type="password" class="form-control" id="password" placeholder="Password" name="password" value="{{$user->password}}">
-                </div>
-                <a class="btn btn-danger" href="{{route('superadmin.user.index')}}">Back</a>
-                <button type="submit" class="btn btn-primary">Save</button>
-        </form>
-      </div>
+                    <a class="btn btn-danger" href="{{route('superadmin.reading.index')}}">Back</a>
+                    <button type="submit" class="btn btn-primary">Save</button>
+            </form>      
+          </div>
     </div>
 
   </div>

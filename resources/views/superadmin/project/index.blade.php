@@ -189,8 +189,8 @@
       <!-- End of Topbar -->
 
     <!-- Page Heading -->
-    <h1 class="h3 mb-2 text-gray-800">All Posts</h1>
-    <p>Total Posts:<span class="text-primary"> {{$projects->count()}}</span></p>
+    <h1 class="h3 mb-2 text-gray-800">All Projects</h1>
+    <p>Total Projects:<span class="text-primary"> {{$projects->count()}}</span></p>
 
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
@@ -210,11 +210,14 @@
                 <th>ID</th>
                 <th>Title</th>
                 <th>Author</th>
+                <th>Is Approved</th>
                 <th>Status</th>
                 <th>Start Date</th>
                 <th>End Date</th>
-                <th>Created At</th>
-                <th>Updated At</th>
+                {{-- <th>School</th>
+                <th>Members</th> --}}
+                {{-- <th>Created At</th>
+                <th>Updated At</th> --}}
                 <th>Action</th>
               </tr>
             </thead>
@@ -223,11 +226,14 @@
                   <th>ID</th>
                   <th>Title</th>
                   <th>Author</th>
+                  <th>Is Approved</th>
                   <th>Status</th>
                   <th>Start Date</th>
                   <th>End Date</th>
-                  <th>Created At</th>
-                  <th>Updated At</th>
+                  {{-- <th>School</th>
+                  <th>Members</th> --}}
+                  {{-- <th>Created At</th>
+                  <th>Updated At</th> --}}
                   <th>Action</th>
               </tr>
             </tfoot>
@@ -254,14 +260,14 @@
                       </td>
                   <td>{{$project->start_date}}</td>
                   <td>{{$project->end_date}}</td>
-                  <td>{{$project->created_at}}</td>
-                  <td>{{$project->updated_at}}</td>
+                  {{-- <td>{{$project->schools->name}}</td>
+                  <td>{{$project->members->name}}</td> --}}
+                  {{-- <td>{{$project->created_at}}</td>
+                  <td>{{$project->updated_at}}</td> --}}
                   <td style="text-align:center;">
-                  <a href="{{route('superadmin.project.edit', $project->id)}}" class="btn btn-primary btn-circle">
+                  <a href="{{route('superadmin.project.edit',$project->id)}}" class="btn btn-primary btn-circle">
                     <i class="fas fa-edit"></i>
                   </a>
-                  </td>
-                  <td style="text-align:center;">
                     <button onclick="deleteUser({{$project->id}})"  class="btn btn-primary btn-circle" type="button">
                       <i class="fas fa-trash"></i>
                     </button>

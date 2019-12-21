@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class RemoveRolenameFromRoles extends Migration
+class CreateMemberProjectTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,11 @@ class RemoveRolenameFromRoles extends Migration
      */
     public function up()
     {
-        Schema::table('roles', function (Blueprint $table) {
-            //
+        Schema::create('member_project', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->integer('project_id');
+            $table->integer('member_id');
+            $table->timestamps();
         });
     }
 
@@ -25,8 +28,6 @@ class RemoveRolenameFromRoles extends Migration
      */
     public function down()
     {
-        Schema::table('roles', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('member_project');
     }
 }

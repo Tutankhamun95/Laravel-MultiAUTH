@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers\SuperAdmin;
 
+use App\Member;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\School;
-use Brian2694\Toastr\Facades\Toastr;
 
-class SchoolController extends Controller
+class MemberController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +15,11 @@ class SchoolController extends Controller
      */
     public function index()
     {
-        $schools = School::latest()->get();
-        return view('superadmin.school.index', compact('schools'));
+
+        $members = Member::latest()->get();
+        return view('superadmin.member.index', compact('members'));
+
+        
     }
 
     /**
@@ -27,7 +29,7 @@ class SchoolController extends Controller
      */
     public function create()
     {
-        return view('superadmin.school.create');
+        //
     }
 
     /**
@@ -38,19 +40,7 @@ class SchoolController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request,[
-            'name' => 'required'
-        ]);
-
-        $school = new School();
-        $school->name = $request->name;
-        $school->address = $request->address;
-        $school->slug = str_slug($request->name);
-        $school->save();
-        Toastr::success('School Successfully Saved', 'Success');
-        return redirect()->route('superadmin.school.index');
-
-       
+        
     }
 
     /**
@@ -72,8 +62,7 @@ class SchoolController extends Controller
      */
     public function edit($id)
     {
-        $school = School::find($id);
-        return view('superadmin.school.edit', compact('school'));
+        //
     }
 
     /**
@@ -85,13 +74,7 @@ class SchoolController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $school = School::find($id);
-        $school->name = $request->name;
-        $school->address = $request->address;
-        $school->slug = str_slug($request->name);
-        $school->save();
-        Toastr::success('School Successfully Updated', 'Success');
-        return redirect()->route('superadmin.school.index');
+        //
     }
 
     /**
@@ -102,8 +85,6 @@ class SchoolController extends Controller
      */
     public function destroy($id)
     {
-        School::find($id)->delete();
-        Toastr::success('School Successfully Deleted','Success');
-        return redirect()->back(); 
+        //
     }
 }

@@ -189,8 +189,8 @@
       <!-- End of Topbar -->
 
     <!-- Page Heading -->
-    <h1 class="h3 mb-2 text-gray-800">All Posts</h1>
-    <p>Total Posts:<span class="text-primary"> {{$readings->count()}}</span></p>
+    <h1 class="h3 mb-2 text-gray-800">All Readings</h1>
+    <p>Total Readings:<span class="text-primary"> {{$readings->count()}}</span></p>
 
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
@@ -236,13 +236,13 @@
 
                   <tr>
                   <td>{{$key + 1}}</td>
-                  <td>{{str_limit($project->title,'15')}}</td>
+                  <td>{{str_limit($reading->title,'15')}}</td>
                   <td>{{$reading->user->name}}</td>
-                  <td>{{$project->DOI}}</td>
-                  <td>{{$project->year}}</td>
-                  <td>{{$project->type}}</td>
-                  <td>{{$project->created_at}}</td>
-                  <td>{{$project->updated_at}}</td>
+                  <td>{{$reading->DOI}}</td>
+                  <td>{{$reading->year}}</td>
+                  <td>{{$reading->type}}</td>
+                  <td>{{$reading->created_at}}</td>
+                  <td>{{$reading->updated_at}}</td>
                   <td style="text-align:center;">
                   <a href="{{route('superadmin.reading.edit', $reading->id)}}" class="btn btn-primary btn-circle">
                     <i class="fas fa-edit"></i>

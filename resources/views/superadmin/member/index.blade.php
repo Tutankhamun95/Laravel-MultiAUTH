@@ -1,11 +1,13 @@
 @extends('layouts.backend.app')
 
-@section('title','User')
+@section('title','Members')
 
 @push('css')
+  
+  <!-- Custom styles for this page -->
+    <!-- Custom styles for this template -->
 
 
-    
 @endpush
 
 @section('content')
@@ -186,39 +188,60 @@
       </nav>
       <!-- End of Topbar -->
 
-
-
     <!-- Page Heading -->
-    <h1 class="h3 mb-2 text-gray-800">Add Reading</h1>
+    <h1 class="h3 mb-2 text-gray-800">All Members</h1>
+    <p>Total Posts:<span class="text-primary"> {{$members->count()}}</span></p>
 
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
       <div class="card-header py-3">
-        <form action="{{route('superadmin.reading.store')}}" method="POST">
-          {{ csrf_field() }}
-                <div class="form-group">
-                  <label for="title">Title</label>
-                  <input type="text" class="form-control" id="title" aria-describedby="titleHelp" placeholder="Title" name="title">
-                  <small id="titleHelp" class="form-text text-muted">Enter Reading Title</small>
-                </div>
-                <div class="form-group">
-                  <label for="DOI">DOI</label>
-                  <input type="date" class="form-control" id="DOI" aria-describedby="doiHelp" placeholder="DOI" name="DOI">
-                  <small id="doiHelp" class="form-text text-muted">Enter DOI</small>
-                </div>
-                <div class="form-group">
-                  <label for="year">Year</label>
-                  <input type="date" class="form-control" id="year" aria-describedby="yearHelp" placeholder="Year" name="year">
-                  <small id="yearHelp" class="form-text text-muted">Enter Year.</small>
-                </div>
-                <div class="form-group">
-                  <label for="type">Type</label>
-                  <input type="text" class="form-control" id="type" aria-describedby="typeHelp" placeholder="Type" name="type">
-                  <small id="typeHelp" class="form-text text-muted">Enter Type of Reading</small>
-                </div>
-                <a class="btn btn-danger" href="{{route('superadmin.reading.index')}}">Back</a>
-                <button type="submit" class="btn btn-primary">Save</button>
-        </form>
+        {{-- <a href="{{route('superadmin.project.create')}}" class="btn btn-success btn-icon-split">
+            <span class="icon text-white-50">
+              <i class="fas fa-plus"></i>
+            </span>
+            <span class="text">Add Project</span>
+          </a> --}}
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tfoot>
+              <tr>
+                  <th>ID</th>
+                  <th>Name</th>
+                  <th>Action</th>
+              </tr>
+            </tfoot>
+            <tbody>
+                @foreach ($members as $key=>$member)
+
+                  <tr>
+                  <td>{{$key + 1}}</td>
+                  <td>{{$member->name}}</td>
+                  <td style="text-align:center;">
+                  <a href="{{route('superadmin.member.edit', $member->id)}}" class="btn btn-primary btn-circle">
+                    <i class="fas fa-edit"></i>
+                  </a>
+                    <button onclick="deleteUser({{$member->id}})"  class="btn btn-primary btn-circle" type="button">
+                      <i class="fas fa-trash"></i>
+                    </button>
+                  <form id="delete-form-{{$member->id}}" action="{{route('superadmin.member.destroy', $member->id)}}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                  </form>
+                  </td>
+                  </tr>
+                @endforeach
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
 
@@ -226,8 +249,48 @@
   <!-- /.container-fluid -->
     
 @endsection
+<script type="text/javascript">
+  
+  function deleteMember(id){
+    const swalWithBootstrapButtons = Swal.mixin({
+customClass: {
+  confirmButton: 'btn btn-success',
+  cancelButton: 'btn btn-danger'
+},
+buttonsStyling: false
+})
+
+swalWithBootstrapButtons.fire({
+title: 'Are you sure?',
+text: "You won't be able to revert this!",
+icon: 'warning',
+showCancelButton: true,
+confirmButtonText: 'Yes, delete it!',
+cancelButtonText: 'No, cancel!',
+reverseButtons: true
+}).then((result) => {
+if (result.value) {
+
+    event.preventDefault();
+    document.getElementById('delete-form-'+id).submit(); 
+  
+} else if (
+  /* Read more about handling dismissals below */
+  result.dismiss === Swal.DismissReason.cancel
+) {
+  swalWithBootstrapButtons.fire(
+    'Cancelled',
+    'Your data file is safe :)',
+    'error'
+  )
+}
+})
+  }
+
+</script>
 
 @push('js')
+  
 
 
     

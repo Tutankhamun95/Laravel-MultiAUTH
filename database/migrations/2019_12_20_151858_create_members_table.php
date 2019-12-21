@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSchoolProjectsTable extends Migration
+class CreateMembersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,17 @@ class CreateSchoolProjectsTable extends Migration
      */
     public function up()
     {
-        Schema::create('school_projects', function (Blueprint $table) {
+        Schema::create('members', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('project_id');
-            $table->integer('school_id');
+            $table->string('name');
+            
             $table->timestamps();
         });
+
+        $select = <<<SQL
+            SELECT `name` from `users` WHERE `role_id`=3 
+        SQL;
+            DB::table('members')->insertUsing(['name'], $select);
     }
 
     /**
@@ -28,6 +33,6 @@ class CreateSchoolProjectsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('school_projects');
+        Schema::dropIfExists('members');
     }
 }

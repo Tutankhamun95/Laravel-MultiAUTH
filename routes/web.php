@@ -26,6 +26,7 @@ Route::group(['as'=>'superadmin.','prefix'=>'superadmin','namespace'=>'SuperAdmi
     Route::resource('user', 'UserController');
     Route::resource('project', 'ProjectController');
     Route::resource('reading', 'ReadingController');
+    Route::resource('member', 'MemberController');
 });
 
 Route::group(['as'=>'schooladmin.','prefix'=>'schooladmin','namespace'=>'SchoolAdmin','middleware'=>['auth','schooladmin']], function 
