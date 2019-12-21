@@ -61,6 +61,69 @@
                 </li>
             
         @endif
+
+                @if (Request::is('schooladmin*'))
+
+                <!-- Nav Item - Dashboard -->
+                <li class="nav-item{{Request::is('schooladmin/dashboard') ? ' active' : ''}}">
+                  <a class="nav-link" href="{{route('schooladmin.dashboard')}}">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Dashboard</span></a>
+                </li>
+          
+                <!-- Divider -->
+                <hr class="sidebar-divider">
+          
+                <!-- Heading -->
+                <div class="sidebar-heading">
+                  Interface
+                </div>
+
+
+
+                <li class="nav-item{{Request::is('schooladmin/project*') ? ' active' : ''}}">
+                  <a class="nav-link" href="{{route('schooladmin.project.index')}}">
+                    <i class="fas fa-fw fa-book"></i>
+                    <span>Projects</span></a>
+                </li>
+
+                <li class="nav-item{{Request::is('schooladmin/reading*') ? ' active' : ''}}">
+                  <a class="nav-link" href="{{route('schooladmin.reading.index')}}">
+                    <i class="fas fa-fw fa-book"></i>
+                    <span>Readings</span></a>
+                </li>
+            
+        @endif
+
+              @if (Request::is('student*'))
+
+              <!-- Nav Item - Dashboard -->
+              <li class="nav-item{{Request::is('student/dashboard') ? ' active' : ''}}">
+                <a class="nav-link" href="{{route('student.dashboard')}}">
+                  <i class="fas fa-fw fa-tachometer-alt"></i>
+                  <span>Dashboard</span></a>
+              </li>
+        
+              <!-- Divider -->
+              <hr class="sidebar-divider">
+        
+              <!-- Heading -->
+              <div class="sidebar-heading">
+                Interface
+              </div>
+
+              <li class="nav-item{{Request::is('student/project*') ? ' active' : ''}}">
+                <a class="nav-link" href="{{route('student.project.index')}}">
+                  <i class="fas fa-fw fa-book"></i>
+                  <span>Projects</span></a>
+              </li>
+
+              <li class="nav-item{{Request::is('student/reading*') ? ' active' : ''}}">
+                <a class="nav-link" href="{{route('student.reading.index')}}">
+                  <i class="fas fa-fw fa-book"></i>
+                  <span>Readings</span></a>
+              </li>
+          @endif
   
         
   

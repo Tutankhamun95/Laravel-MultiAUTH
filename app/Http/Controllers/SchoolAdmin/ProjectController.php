@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\SuperAdmin;
+namespace App\Http\Controllers\SchoolAdmin;
 
 use App\Project;
 use App\School;
@@ -20,7 +20,7 @@ class ProjectController extends Controller
     public function index()
     {
         $projects = Project::latest()->get();
-        return view('superadmin.project.index', compact('projects'));
+        return view('schooladmin.project.index', compact('projects'));
     }
 
     /**
@@ -32,7 +32,7 @@ class ProjectController extends Controller
     {
         $schools = School::all();
         $members = Member::all();
-        return view('superadmin.project.create', compact('schools', 'members' ));
+        return view('schooladmin.project.create', compact('schools', 'members' ));
     }
 
     /**
@@ -68,7 +68,7 @@ class ProjectController extends Controller
             $project->members()->attach($request->members);  
 
             Toastr::success('Project Saved Successfully', 'Success');
-            return redirect()->route('superadmin.project.index');
+            return redirect()->route('schooladmin.project.index');
     }
 
     /**
@@ -79,7 +79,7 @@ class ProjectController extends Controller
      */
     public function show(Project $project)
     {
-        return view('superadmin.project.show',compact('project'));
+        return view('schooladmin.project.show',compact('project'));
     }
 
     /**
@@ -92,7 +92,7 @@ class ProjectController extends Controller
     {
         $schools = School::all();
         $members = Member::all();
-        return view('superadmin.project.edit', compact('project','schools', 'members' ));
+        return view('schooladmin.project.edit', compact('project','schools', 'members' ));
     }
 
     /**
@@ -128,7 +128,7 @@ class ProjectController extends Controller
             $project->members()->sync($request->members);  
 
             Toastr::success('Project Updated Successfully', 'Success');
-            return redirect()->route('superadmin.project.index');
+            return redirect()->route('schooladmin.project.index');
     }
 
     /**

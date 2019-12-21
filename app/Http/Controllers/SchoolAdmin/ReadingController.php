@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\SuperAdmin;
+namespace App\Http\Controllers\SchoolAdmin;
 
 use App\Reading;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use Brian2694\Toastr\Facades\Toastr;
 
 class ReadingController extends Controller
 {
@@ -17,8 +16,8 @@ class ReadingController extends Controller
      */
     public function index()
     {
-        $readings = Reading::latest()->get();
-        return view('superadmin.reading.index', compact('readings'));
+        $readings = Auth::User()->readings()->latest()->get();
+        return view('schooladmin.reading.index', compact('readings'));
     }
 
     /**
@@ -28,7 +27,7 @@ class ReadingController extends Controller
      */
     public function create()
     {
-        return view('superadmin.reading.create');
+        return view('schooladmin.reading.create');
     }
 
     /**
@@ -53,7 +52,8 @@ class ReadingController extends Controller
 
             $reading->save();
             Toastr::success('Reading Saved Successfully', 'Success');
-            return redirect()->route('superadmin.reading.index');
+            return redirect()->route('schooladmin.reading.index');
+
     }
 
     /**
@@ -64,7 +64,8 @@ class ReadingController extends Controller
      */
     public function show(Reading $reading)
     {
-        return view('superadmin.reading.show',compact('reading'));
+        return view('schooladmin.reading.show',compact('reading'));
+
     }
 
     /**
@@ -75,8 +76,7 @@ class ReadingController extends Controller
      */
     public function edit(Reading $reading)
     {
-        // $reading = Reading::find($id);
-        return view('superadmin.reading.edit', compact('reading'));
+        return view('schooladmin.reading.edit', compact('reading'));
     }
 
     /**
@@ -101,7 +101,7 @@ class ReadingController extends Controller
 
             $reading->save();
             Toastr::success('Reading Saved Successfully', 'Success');
-            return redirect()->route('superadmin.reading.index');
+            return redirect()->route('schooladmin.reading.index');
     }
 
     /**
@@ -114,6 +114,6 @@ class ReadingController extends Controller
     {
         Reading::find($id)->delete();
         Toastr::success('School Successfully Deleted','Success');
-        return redirect()->back(); 
+        return redirect()->back();
     }
 }

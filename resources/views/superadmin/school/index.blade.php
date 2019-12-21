@@ -234,6 +234,9 @@
                   <td>{{$school->created_at}}</td>
                   <td>{{$school->updated_at}}</td>
                   <td style="text-align:center;">
+                  <a href="{{route('superadmin.school.show', $school->id)}}" class="btn btn-primary btn-circle">
+                      <i class="fas fa-eye"></i>
+                    </a>
                     <a href="{{route('superadmin.school.edit', $school->id)}}" class="btn btn-primary btn-circle">
                       <i class="fas fa-edit"></i>
                     </a>

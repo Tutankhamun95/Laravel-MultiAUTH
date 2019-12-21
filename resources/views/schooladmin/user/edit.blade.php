@@ -189,123 +189,48 @@
 
 
     <!-- Page Heading -->
-    <div class="card shadow mb-4">
-        <!-- Card Header - Accordion -->
-        <a href="#title" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
-          <h6 class="m-0 font-weight-bold text-primary">Project Title</h6>
-        </a>
-        <!-- Card Content - Collapse -->
-        <div class="collapse hide" id="title">
-          <div class="card-body">
-              {{$project->title}}
-          </div>
-        </div>
-    </div>
+    <h1 class="h3 mb-2 text-gray-800">Edit User</h1>
 
+    <!-- DataTales Example -->
     <div class="card shadow mb-4">
-        <!-- Card Header - Accordion -->
-        <a href="#name" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
-          <h6 class="m-0 font-weight-bold text-primary">Created By</h6>
-        </a>
-        <!-- Card Content - Collapse -->
-        <div class="collapse hide" id="name">
-          <div class="card-body">
-              {{$project->user->name}}
-          </div>
-        </div>
-    </div>
-
-    <div class="card shadow mb-4">
-        <!-- Card Header - Accordion -->
-        <a href="#created" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
-          <h6 class="m-0 font-weight-bold text-primary">School</h6>
-        </a>
-        <!-- Card Content - Collapse -->
-        <div class="collapse hide" id="created">
-          <div class="card-body">
-              @foreach ($project->schools as $school)
-                  {{$school->name}}
-              @endforeach
-          </div>
-        </div>
-    </div>
-
-    <div class="card shadow mb-4">
-        <!-- Card Header - Accordion -->
-        <a href="#member" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
-          <h6 class="m-0 font-weight-bold text-primary">Member</h6>
-        </a>
-        <!-- Card Content - Collapse -->
-        <div class="collapse hide" id="member">
-          <div class="card-body">
-              @foreach ($project->members as $member)
-                  {{$member->name}}
-              @endforeach
-          </div>
-        </div>
-    </div>
-
-    <div class="card shadow mb-4">
-        <!-- Card Header - Accordion -->
-        <a href="#start" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
-          <h6 class="m-0 font-weight-bold text-primary">Start Date</h6>
-        </a>
-        <!-- Card Content - Collapse -->
-        <div class="collapse hide" id="start">
-          <div class="card-body">
-              {{$project->start_date}}
-          </div>
-        </div>
-    </div>
-
-    <div class="card shadow mb-4">
-        <!-- Card Header - Accordion -->
-        <a href="#end" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
-          <h6 class="m-0 font-weight-bold text-primary">End Date</h6>
-        </a>
-        <!-- Card Content - Collapse -->
-        <div class="collapse hide" id="end">
-          <div class="card-body">
-              {{$project->end_date}}
-          </div>
-        </div>
-    </div>
-
-    <div class="card shadow mb-4">
-        <!-- Card Header - Accordion -->
-        <a href="#status" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
-          <h6 class="m-0 font-weight-bold text-primary">Approval</h6>
-        </a>
-        <!-- Card Content - Collapse -->
-      <div class="collapse hide" id="status">
-        @if ($project->is_approved == false)
-          <button class="btn btn-danger pull-right">
-            <span>Not Approve</span>
-          </button>
-          @else
-          <button class="btn btn-success pull-right" disabled>
-              <i class="icons">Done</i>
-              <span>Approved</span>
-            </button>
-        @endif
+      <div class="card-header py-3">
+        <form action="{{route('superadmin.user.update', $user->id)}}" method="POST">
+          {{ csrf_field() }}
+            @method('put')
+                <div class="form-group">
+                  <label for="role_id">Role ID</label>
+                  <input type="integer" class="form-control" id="role_id" aria-describedby="role_idHelp" placeholder="Role ID" name="role_id" value="{{$user->role_id}}">
+                  <small id="emailHelp" class="form-text text-muted">1 for Super Admin, 2 for School Admin, 3 for Student</small>
+                </div>
+                <div class="form-group">
+                  <label for="rolename">Role Name</label>
+                  <input type="text" class="form-control" id="rolename" aria-describedby="rolenameHelp" placeholder="Role Name" name="rolename" value="{{$user->rolename}}">
+                  <small id="emailHelp" class="form-text text-muted">Super Admin, School Admin or Student</small>
+                </div>
+                <div class="form-group">
+                  <label for="name">Full Name</label>
+                  <input type="text" class="form-control" id="name" aria-describedby="nameHelp" placeholder="Name" name="name" value="{{$user->name}}">
+                  <small id="emailHelp" class="form-text text-muted">Enter Your Full Name.</small>
+                </div>
+                <div class="form-group">
+                  <label for="username">Username</label>
+                  <input type="text" class="form-control" id="username" aria-describedby="usernameHelp" placeholder="Username" name="username" value="{{$user->username}}">
+                  <small id="emailHelp" class="form-text text-muted">Enter a suitable username</small>
+                </div>
+                <div class="form-group">
+                  <label for="email">E-mail</label>
+                  <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="E-mail" name="email" value="{{$user->email}}">
+                  <small id="emailHelp" class="form-text text-muted">Enter a suitable username</small>
+                </div>
+                <div class="form-group">
+                  <label for="password">Password</label>
+                  <input type="password" class="form-control" id="password" placeholder="Password" name="password" value="{{$user->password}}">
+                </div>
+                <a class="btn btn-danger" href="{{route('superadmin.user.index')}}">Back</a>
+                <button type="submit" class="btn btn-primary">Save</button>
+        </form>
       </div>
     </div>
-
-    <div class="card shadow mb-4">
-        <!-- Card Header - Accordion -->
-        <a href="#approved" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
-          <h6 class="m-0 font-weight-bold text-primary">Status</h6>
-        </a>
-        <!-- Card Content - Collapse -->
-        <div class="collapse hide" id="approved">
-          <div class="card-body">
-              {{$project->status}}
-          </div>
-        </div>
-    </div>
-
-    <a class="btn btn-danger" href="{{route('superadmin.project.index')}}">Back</a>
-    <button type="submit" class="btn btn-primary">Save</button>
 
   </div>
   <!-- /.container-fluid -->

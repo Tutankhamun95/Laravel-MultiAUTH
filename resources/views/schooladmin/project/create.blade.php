@@ -1,7 +1,8 @@
 @extends('layouts.backend.app')
 
-@section('title','User')
+@section('title','Create')
 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css">
 @push('css')
 
 
@@ -189,129 +190,67 @@
 
 
     <!-- Page Heading -->
-    <div class="card shadow mb-4">
-        <!-- Card Header - Accordion -->
-        <a href="#title" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
-          <h6 class="m-0 font-weight-bold text-primary">Project Title</h6>
-        </a>
-        <!-- Card Content - Collapse -->
-        <div class="collapse hide" id="title">
-          <div class="card-body">
-              {{$project->title}}
-          </div>
-        </div>
-    </div>
+    <h1 class="h3 mb-2 text-gray-800">Create Project</h1>
 
+    <!-- DataTales Example -->
     <div class="card shadow mb-4">
-        <!-- Card Header - Accordion -->
-        <a href="#name" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
-          <h6 class="m-0 font-weight-bold text-primary">Created By</h6>
-        </a>
-        <!-- Card Content - Collapse -->
-        <div class="collapse hide" id="name">
-          <div class="card-body">
-              {{$project->user->name}}
-          </div>
-        </div>
-    </div>
-
-    <div class="card shadow mb-4">
-        <!-- Card Header - Accordion -->
-        <a href="#created" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
-          <h6 class="m-0 font-weight-bold text-primary">School</h6>
-        </a>
-        <!-- Card Content - Collapse -->
-        <div class="collapse hide" id="created">
-          <div class="card-body">
-              @foreach ($project->schools as $school)
-                  {{$school->name}}
-              @endforeach
-          </div>
-        </div>
-    </div>
-
-    <div class="card shadow mb-4">
-        <!-- Card Header - Accordion -->
-        <a href="#member" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
-          <h6 class="m-0 font-weight-bold text-primary">Member</h6>
-        </a>
-        <!-- Card Content - Collapse -->
-        <div class="collapse hide" id="member">
-          <div class="card-body">
-              @foreach ($project->members as $member)
-                  {{$member->name}}
-              @endforeach
-          </div>
-        </div>
-    </div>
-
-    <div class="card shadow mb-4">
-        <!-- Card Header - Accordion -->
-        <a href="#start" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
-          <h6 class="m-0 font-weight-bold text-primary">Start Date</h6>
-        </a>
-        <!-- Card Content - Collapse -->
-        <div class="collapse hide" id="start">
-          <div class="card-body">
-              {{$project->start_date}}
-          </div>
-        </div>
-    </div>
-
-    <div class="card shadow mb-4">
-        <!-- Card Header - Accordion -->
-        <a href="#end" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
-          <h6 class="m-0 font-weight-bold text-primary">End Date</h6>
-        </a>
-        <!-- Card Content - Collapse -->
-        <div class="collapse hide" id="end">
-          <div class="card-body">
-              {{$project->end_date}}
-          </div>
-        </div>
-    </div>
-
-    <div class="card shadow mb-4">
-        <!-- Card Header - Accordion -->
-        <a href="#status" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
-          <h6 class="m-0 font-weight-bold text-primary">Approval</h6>
-        </a>
-        <!-- Card Content - Collapse -->
-      <div class="collapse hide" id="status">
-        @if ($project->is_approved == false)
-          <button class="btn btn-danger pull-right">
-            <span>Not Approve</span>
-          </button>
-          @else
-          <button class="btn btn-success pull-right" disabled>
-              <i class="icons">Done</i>
-              <span>Approved</span>
-            </button>
-        @endif
+      <div class="card-header py-3">
+        <form action="{{route('schooladmin.project.store')}}" method="POST">
+          {{ csrf_field() }}
+                <div class="form-group">
+                  <label for="title">Project Title</label>
+                  <input type="text" class="form-control" id="title" aria-describedby="titleHelp" placeholder="Title" name="title">
+                  <small id="titleHelp" class="form-text text-muted">Enter Project Title</small>
+                </div>
+                <div class="form-group">
+                  <label for="start_date">Start Date</label>
+                  <input type="date" class="form-control" id="start_date" aria-describedby="start_dateHelp" placeholder="Start Date" name="start_date">
+                  <small id="start_dateHelp" class="form-text text-muted">Enter Start Date.</small>
+                </div>
+                <div class="form-group">
+                  <label for="end_date">End Date</label>
+                  <input type="date" class="form-control" id="end_date" aria-describedby="end_dateHelp" placeholder="End Date" name="end_date">
+                  <small id="end_dateHelp" class="form-text text-muted">Enter End Date.</small>
+                </div>
+                <div class="form-group">
+                  <label for="exampleFormControlSelect1">Select School</label>
+                  <div class="form-line" {{$errors->has('schools') ? 'focused error' : ''}}>
+                  <select class="form-control" id="exampleFormControlSelect1" name="schools[]" id="category" data-live-search="true">
+                    @foreach ($schools as $school)
+                  <option value="{{$school->id}}">{{$school->name}}</option>    
+                    @endforeach
+                  </select>
+                </div>
+                </div>
+                <div class="form-group">
+                    <label for="exampleFormControlSelect1">Select Members</label>
+                    <div class="form-line" {{$errors->has('members') ? 'focused error' : ''}}>
+                    <select class="form-control" id="exampleFormControlSelect1" name="members[]" id="member" data-live-search="true" multiple>
+                      @foreach ($members as $member)
+                    <option value="{{$member->id}}">{{$member->name}}</option>    
+                      @endforeach
+                    </select>
+                  </div>
+                  </div>
+                <div class="form-group">
+                    <label for="publish">Publish</label>
+                    <input type="checkbox" class="form-control" id="publish" aria-describedby="statusHelp" placeholder="Status" name="status" value="1">
+                  </div>
+                <a class="btn btn-danger" href="{{route('schooladmin.project.index')}}">Back</a>
+                <button type="submit" class="btn btn-primary">Save</button>
+        </form>
       </div>
     </div>
-
-    <div class="card shadow mb-4">
-        <!-- Card Header - Accordion -->
-        <a href="#approved" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
-          <h6 class="m-0 font-weight-bold text-primary">Status</h6>
-        </a>
-        <!-- Card Content - Collapse -->
-        <div class="collapse hide" id="approved">
-          <div class="card-body">
-              {{$project->status}}
-          </div>
-        </div>
-    </div>
-
-    <a class="btn btn-danger" href="{{route('superadmin.project.index')}}">Back</a>
-    <button type="submit" class="btn btn-primary">Save</button>
 
   </div>
   <!-- /.container-fluid -->
     
 @endsection
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/js/bootstrap-select.min.js"></script>
 
+<!-- (Optional) Latest compiled and minified JavaScript translation files -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/js/i18n/defaults-*.min.js"></script>
 @push('js')
 
 

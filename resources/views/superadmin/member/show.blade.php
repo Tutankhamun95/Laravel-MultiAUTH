@@ -1,13 +1,11 @@
 @extends('layouts.backend.app')
 
-@section('title','Members')
+@section('title','Member')
 
 @push('css')
-  
-  <!-- Custom styles for this page -->
-    <!-- Custom styles for this template -->
 
 
+    
 @endpush
 
 @section('content')
@@ -188,109 +186,43 @@
       </nav>
       <!-- End of Topbar -->
 
+
+
     <!-- Page Heading -->
-    <h1 class="h3 mb-2 text-gray-800">All Members</h1>
-    <p>Total Posts:<span class="text-primary"> {{$members->count()}}</span></p>
-
-    <!-- DataTales Example -->
     <div class="card shadow mb-4">
-      <div class="card-header py-3">
-        {{-- <a href="{{route('superadmin.project.create')}}" class="btn btn-success btn-icon-split">
-            <span class="icon text-white-50">
-              <i class="fas fa-plus"></i>
-            </span>
-            <span class="text">Add Project</span>
-          </a> --}}
-      </div>
-      <div class="card-body">
-        <div class="table-responsive">
-          <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tfoot>
-              <tr>
-                  <th>ID</th>
-                  <th>Name</th>
-                  <th>Action</th>
-              </tr>
-            </tfoot>
-            <tbody>
-                @foreach ($members as $key=>$member)
-
-                  <tr>
-                  <td>{{$key + 1}}</td>
-                  <td>{{$member->name}}</td>
-                  <td style="text-align:center;">
-                  <a href="{{route('superadmin.member.edit', $member->id)}}" class="btn btn-primary btn-circle">
-                    <i class="fas fa-edit"></i>
-                  </a>
-                    <button onclick="deleteUser({{$member->id}})"  class="btn btn-primary btn-circle" type="button">
-                      <i class="fas fa-trash"></i>
-                    </button>
-                  <form id="delete-form-{{$member->id}}" action="{{route('superadmin.member.destroy', $member->id)}}" method="POST">
-                    @csrf
-                    @method('DELETE')
-                  </form>
-                  </td>
-                  </tr>
-                @endforeach
-            </tbody>
-          </table>
+        <!-- Card Header - Accordion -->
+        <a href="#title" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
+          <h6 class="m-0 font-weight-bold text-primary">Member ID</h6>
+        </a>
+        <!-- Card Content - Collapse -->
+        <div class="collapse hide" id="title">
+          <div class="card-body">
+              {{$member->id}}
+          </div>
         </div>
-      </div>
     </div>
 
+    <div class="card shadow mb-4">
+        <!-- Card Header - Accordion -->
+        <a href="#name" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
+          <h6 class="m-0 font-weight-bold text-primary">Member Name</h6>
+        </a>
+        <!-- Card Content - Collapse -->
+        <div class="collapse hide" id="name">
+          <div class="card-body">
+              {{$member->name}}
+          </div>
+        </div>
+    </div>
+
+    <a class="btn btn-danger" href="{{route('superadmin.project.index')}}">Back</a>
+    <button type="submit" class="btn btn-primary">Save</button>
   </div>
   <!-- /.container-fluid -->
     
 @endsection
-<script type="text/javascript">
-  
-  function deleteMember(id){
-    const swalWithBootstrapButtons = Swal.mixin({
-customClass: {
-  confirmButton: 'btn btn-success',
-  cancelButton: 'btn btn-danger'
-},
-buttonsStyling: false
-})
-
-swalWithBootstrapButtons.fire({
-title: 'Are you sure?',
-text: "You won't be able to revert this!",
-icon: 'warning',
-showCancelButton: true,
-confirmButtonText: 'Yes, delete it!',
-cancelButtonText: 'No, cancel!',
-reverseButtons: true
-}).then((result) => {
-if (result.value) {
-
-    event.preventDefault();
-    document.getElementById('delete-form-'+id).submit(); 
-  
-} else if (
-  /* Read more about handling dismissals below */
-  result.dismiss === Swal.DismissReason.cancel
-) {
-  swalWithBootstrapButtons.fire(
-    'Cancelled',
-    'Your data file is safe :)',
-    'error'
-  )
-}
-})
-  }
-
-</script>
 
 @push('js')
-  
 
 
     

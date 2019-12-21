@@ -32,9 +32,15 @@ Route::group(['as'=>'superadmin.','prefix'=>'superadmin','namespace'=>'SuperAdmi
 Route::group(['as'=>'schooladmin.','prefix'=>'schooladmin','namespace'=>'SchoolAdmin','middleware'=>['auth','schooladmin']], function 
 (){
     Route::get('dashboard','DashboardController@index')->name('dashboard');
+    Route::resource('project', 'ProjectController');
+    Route::resource('reading', 'ReadingController');
+
 });
 
 Route::group(['as'=>'student.','prefix'=>'student','namespace'=>'Student','middleware'=>['auth','student']], function 
 (){
     Route::get('dashboard','DashboardController@index')->name('dashboard');
+    Route::resource('reading', 'ReadingController');
+    Route::resource('project', 'ProjectController');
+    Route::resource('member', 'MemberController');
 });

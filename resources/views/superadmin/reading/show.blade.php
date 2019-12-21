@@ -189,38 +189,74 @@
 
 
     <!-- Page Heading -->
-    <h1 class="h3 mb-2 text-gray-800">Add Reading</h1>
-
-    <!-- DataTales Example -->
+    <!-- Page Heading -->
     <div class="card shadow mb-4">
-      <div class="card-header py-3">
-        <form action="{{route('superadmin.reading.store')}}" method="POST">
-          {{ csrf_field() }}
-                <div class="form-group">
-                  <label for="title">Title</label>
-                  <input type="text" class="form-control" id="title" aria-describedby="titleHelp" placeholder="Title" name="title">
-                  <small id="titleHelp" class="form-text text-muted">Enter Reading Title</small>
-                </div>
-                <div class="form-group">
-                  <label for="DOI">DOI</label>
-                  <input type="date" class="form-control" id="DOI" aria-describedby="doiHelp" placeholder="DOI" name="DOI">
-                  <small id="doiHelp" class="form-text text-muted">Enter DOI</small>
-                </div>
-                <div class="form-group">
-                  <label for="year">Year</label>
-                  <input type="date" class="form-control" id="year" aria-describedby="yearHelp" placeholder="Year" name="year">
-                  <small id="yearHelp" class="form-text text-muted">Enter Year.</small>
-                </div>
-                <div class="form-group">
-                  <label for="type">Type</label>
-                  <input type="text" class="form-control" id="type" aria-describedby="typeHelp" placeholder="Type" name="type">
-                  <small id="typeHelp" class="form-text text-muted">Enter Type of Reading</small>
-                </div>
-                <a class="btn btn-danger" href="{{route('superadmin.reading.index')}}">Back</a>
-                <button type="submit" class="btn btn-primary">Save</button>
-        </form>
-      </div>
+        <!-- Card Header - Accordion -->
+        <a href="#title" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
+          <h6 class="m-0 font-weight-bold text-primary">Reading Title</h6>
+        </a>
+        <!-- Card Content - Collapse -->
+        <div class="collapse hide" id="title">
+          <div class="card-body">
+              {{$reading->title}}
+          </div>
+        </div>
     </div>
+
+    <div class="card shadow mb-4">
+        <!-- Card Header - Accordion -->
+        <a href="#name" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
+          <h6 class="m-0 font-weight-bold text-primary">Created By</h6>
+        </a>
+        <!-- Card Content - Collapse -->
+        <div class="collapse hide" id="name">
+          <div class="card-body">
+              {{$reading->user->name}}
+          </div>
+        </div>
+    </div>
+
+    <div class="card shadow mb-4">
+        <!-- Card Header - Accordion -->
+        <a href="#start" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
+          <h6 class="m-0 font-weight-bold text-primary">DOI</h6>
+        </a>
+        <!-- Card Content - Collapse -->
+        <div class="collapse hide" id="start">
+          <div class="card-body">
+              {{$reading->DOI}}
+          </div>
+        </div>
+    </div>
+
+    <div class="card shadow mb-4">
+        <!-- Card Header - Accordion -->
+        <a href="#end" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
+          <h6 class="m-0 font-weight-bold text-primary">Year</h6>
+        </a>
+        <!-- Card Content - Collapse -->
+        <div class="collapse hide" id="end">
+          <div class="card-body">
+              {{$reading->year}}
+          </div>
+        </div>
+    </div>
+
+    <div class="card shadow mb-4">
+        <!-- Card Header - Accordion -->
+        <a href="#status" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
+          <h6 class="m-0 font-weight-bold text-primary">Type</h6>
+        </a>
+        <!-- Card Content - Collapse -->
+        <div class="collapse hide" id="status">
+          <div class="card-body">
+              {{$reading->type}}
+          </div>
+        </div>
+    </div>
+
+    <a class="btn btn-danger" href="{{route('superadmin.reading.index')}}">Back</a>
+    <button type="submit" class="btn btn-primary">Save</button>
 
   </div>
   <!-- /.container-fluid -->

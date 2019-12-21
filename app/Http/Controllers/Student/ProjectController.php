@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\SuperAdmin;
+namespace App\Http\Controllers\Student;
 
 use App\Project;
 use App\School;
 use App\Member;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Brian2694\Toastr\Facades\Toastr;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
 class ProjectController extends Controller
@@ -19,8 +19,8 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        $projects = Project::latest()->get();
-        return view('superadmin.project.index', compact('projects'));
+        $projects = Auth::User()->projects()->latest()->get();
+        return view('student.project.index', compact('projects'));
     }
 
     /**
@@ -32,7 +32,7 @@ class ProjectController extends Controller
     {
         $schools = School::all();
         $members = Member::all();
-        return view('superadmin.project.create', compact('schools', 'members' ));
+        return view('student.project.create', compact('schools', 'members' ));
     }
 
     /**
@@ -60,7 +60,7 @@ class ProjectController extends Controller
                 $project->status = false;
             }
 
-            $project->is_approved = true;
+            $project->is_approved = false;
 
             $project->save();
 
@@ -68,7 +68,7 @@ class ProjectController extends Controller
             $project->members()->attach($request->members);  
 
             Toastr::success('Project Saved Successfully', 'Success');
-            return redirect()->route('superadmin.project.index');
+            return redirect()->route('student.project.index');
     }
 
     /**
@@ -79,7 +79,7 @@ class ProjectController extends Controller
      */
     public function show(Project $project)
     {
-        return view('superadmin.project.show',compact('project'));
+        //
     }
 
     /**
@@ -90,9 +90,7 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        $schools = School::all();
-        $members = Member::all();
-        return view('superadmin.project.edit', compact('project','schools', 'members' ));
+        //
     }
 
     /**
@@ -104,31 +102,7 @@ class ProjectController extends Controller
      */
     public function update(Request $request, Project $project)
     {
-        $this->validate($request, [
-            'title' => 'required',
-        ]);
-            $slug = str_slug($request->title);
-            $project->user_id = Auth::id();
-            $project->title = $request->title;
-            $project->slug = $slug;
-            $project->start_date = $request->start_date;
-            $project->end_date = $request->end_date;
-            if(isset($request->status))
-            {
-                $project->status = true;
-            }else{
-                $project->status = false;
-            }
-
-            $project->is_approved = true;
-
-            $project->save();
-
-            $project->schools()->sync($request->schools);
-            $project->members()->sync($request->members);  
-
-            Toastr::success('Project Updated Successfully', 'Success');
-            return redirect()->route('superadmin.project.index');
+        //
     }
 
     /**
@@ -139,10 +113,6 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
-        $project->schools()->detach();
-        $project->members()->detach();
-        $project->delete();
-        Toastr::success('Project Successfully Deleted', 'Success');
-        return redirect()->back(); 
+        //
     }
 }

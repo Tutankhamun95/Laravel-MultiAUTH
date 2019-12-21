@@ -1,11 +1,13 @@
 @extends('layouts.backend.app')
 
-@section('title','User')
+@section('title','Projects')
 
 @push('css')
+  
+  <!-- Custom styles for this page -->
+    <!-- Custom styles for this template -->
 
 
-    
 @endpush
 
 @section('content')
@@ -186,133 +188,154 @@
       </nav>
       <!-- End of Topbar -->
 
-
-
     <!-- Page Heading -->
-    <div class="card shadow mb-4">
-        <!-- Card Header - Accordion -->
-        <a href="#title" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
-          <h6 class="m-0 font-weight-bold text-primary">Project Title</h6>
-        </a>
-        <!-- Card Content - Collapse -->
-        <div class="collapse hide" id="title">
-          <div class="card-body">
-              {{$project->title}}
-          </div>
-        </div>
-    </div>
+    <h1 class="h3 mb-2 text-gray-800">All Projects</h1>
+    <p>Total Projects:<span class="text-primary"> {{$projects->count()}}</span></p>
 
+    <!-- DataTales Example -->
     <div class="card shadow mb-4">
-        <!-- Card Header - Accordion -->
-        <a href="#name" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
-          <h6 class="m-0 font-weight-bold text-primary">Created By</h6>
-        </a>
-        <!-- Card Content - Collapse -->
-        <div class="collapse hide" id="name">
-          <div class="card-body">
-              {{$project->user->name}}
-          </div>
-        </div>
-    </div>
+      <div class="card-header py-3">
+        <a href="{{route('schooladmin.project.create')}}" class="btn btn-success btn-icon-split">
+            <span class="icon text-white-50">
+              <i class="fas fa-plus"></i>
+            </span>
+            <span class="text">Add Project</span>
+          </a>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Role</th>
+                <th>Is Approved</th>
+                <th>Status</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                {{-- <th>School</th>
+                <th>Members</th> --}}
+                {{-- <th>Created At</th>
+                <th>Updated At</th> --}}
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tfoot>
+              <tr>
+                  <th>ID</th>
+                  <th>Title</th>
+                  <th>Author</th>
+                  <th>Role</th>
+                  <th>Is Approved</th>
+                  <th>Status</th>
+                  <th>Start Date</th>
+                  <th>End Date</th>
+                  {{-- <th>School</th>
+                  <th>Members</th> --}}
+                  {{-- <th>Created At</th>
+                  <th>Updated At</th> --}}
+                  <th>Action</th>
+              </tr>
+            </tfoot>
+            <tbody>
+                @foreach ($projects as $key=>$project)
 
-    <div class="card shadow mb-4">
-        <!-- Card Header - Accordion -->
-        <a href="#created" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
-          <h6 class="m-0 font-weight-bold text-primary">School</h6>
-        </a>
-        <!-- Card Content - Collapse -->
-        <div class="collapse hide" id="created">
-          <div class="card-body">
-              @foreach ($project->schools as $school)
-                  {{$school->name}}
-              @endforeach
-          </div>
+                  <tr>
+                  <td>{{$key + 1}}</td>
+                  <td>{{str_limit($project->title,'15')}}</td>
+                  <td>{{$project->user->name}}</td>
+                  <td>{{$project->user->role->name}}</td>
+                  <td>
+                  @if ($project->is_approved == true)
+                        <span class="text-success">Approved</span>
+                        @else
+                        <span class="text-warning">Pending</span>
+                    @endif
+                  </td>
+                  <td>
+                      @if ($project->status == true)
+                            <span class="text-success">Published</span>
+                            @else
+                            <span class="text-warning">Pending</span>
+                        @endif
+                      </td>
+                  <td>{{$project->start_date}}</td>
+                  <td>{{$project->end_date}}</td>
+                  {{-- <td>{{$project->schools->name}}</td>
+                  <td>{{$project->members->name}}</td> --}}
+                  {{-- <td>{{$project->created_at}}</td>
+                  <td>{{$project->updated_at}}</td> --}}
+                  <td style="text-align:center;">
+                  <a href="{{route('schooladmin.project.show',$project->id)}}" class="btn btn-primary btn-circle">
+                      <i class="fas fa-eye"></i>
+                    </a>
+                    <a href="{{route('schooladmin.project.edit',$project->id)}}" class="btn btn-primary btn-circle">
+                    <i class="fas fa-edit"></i>
+                  </a>
+                    <button onclick="deleteProject({{$project->id}})"  class="btn btn-primary btn-circle" type="button">
+                      <i class="fas fa-trash"></i>
+                    </button>
+                    <form id="delete-form-{{$project->id}}" action="{{route('schooladmin.project.destroy', $project->id)}}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                      </form>
+                  </td>
+                  </tr>
+                @endforeach
+            </tbody>
+          </table>
         </div>
-    </div>
-
-    <div class="card shadow mb-4">
-        <!-- Card Header - Accordion -->
-        <a href="#member" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
-          <h6 class="m-0 font-weight-bold text-primary">Member</h6>
-        </a>
-        <!-- Card Content - Collapse -->
-        <div class="collapse hide" id="member">
-          <div class="card-body">
-              @foreach ($project->members as $member)
-                  {{$member->name}}
-              @endforeach
-          </div>
-        </div>
-    </div>
-
-    <div class="card shadow mb-4">
-        <!-- Card Header - Accordion -->
-        <a href="#start" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
-          <h6 class="m-0 font-weight-bold text-primary">Start Date</h6>
-        </a>
-        <!-- Card Content - Collapse -->
-        <div class="collapse hide" id="start">
-          <div class="card-body">
-              {{$project->start_date}}
-          </div>
-        </div>
-    </div>
-
-    <div class="card shadow mb-4">
-        <!-- Card Header - Accordion -->
-        <a href="#end" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
-          <h6 class="m-0 font-weight-bold text-primary">End Date</h6>
-        </a>
-        <!-- Card Content - Collapse -->
-        <div class="collapse hide" id="end">
-          <div class="card-body">
-              {{$project->end_date}}
-          </div>
-        </div>
-    </div>
-
-    <div class="card shadow mb-4">
-        <!-- Card Header - Accordion -->
-        <a href="#status" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
-          <h6 class="m-0 font-weight-bold text-primary">Approval</h6>
-        </a>
-        <!-- Card Content - Collapse -->
-      <div class="collapse hide" id="status">
-        @if ($project->is_approved == false)
-          <button class="btn btn-danger pull-right">
-            <span>Not Approve</span>
-          </button>
-          @else
-          <button class="btn btn-success pull-right" disabled>
-              <i class="icons">Done</i>
-              <span>Approved</span>
-            </button>
-        @endif
       </div>
     </div>
-
-    <div class="card shadow mb-4">
-        <!-- Card Header - Accordion -->
-        <a href="#approved" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
-          <h6 class="m-0 font-weight-bold text-primary">Status</h6>
-        </a>
-        <!-- Card Content - Collapse -->
-        <div class="collapse hide" id="approved">
-          <div class="card-body">
-              {{$project->status}}
-          </div>
-        </div>
-    </div>
-
-    <a class="btn btn-danger" href="{{route('superadmin.project.index')}}">Back</a>
-    <button type="submit" class="btn btn-primary">Save</button>
 
   </div>
   <!-- /.container-fluid -->
     
 @endsection
+<script type="text/javascript">
+  
+  function deleteProject(id){
+    const swalWithBootstrapButtons = Swal.mixin({
+customClass: {
+  confirmButton: 'btn btn-success',
+  cancelButton: 'btn btn-danger'
+},
+buttonsStyling: false
+})
+
+swalWithBootstrapButtons.fire({
+title: 'Are you sure?',
+text: "You won't be able to revert this!",
+icon: 'warning',
+showCancelButton: true,
+confirmButtonText: 'Yes, delete it!',
+cancelButtonText: 'No, cancel!',
+reverseButtons: true
+}).then((result) => {
+if (result.value) {
+
+    event.preventDefault();
+    document.getElementById('delete-form-'+id).submit(); 
+  
+} else if (
+  /* Read more about handling dismissals below */
+  result.dismiss === Swal.DismissReason.cancel
+) {
+  swalWithBootstrapButtons.fire(
+    'Cancelled',
+    'Your data file is safe :)',
+    'error'
+  )
+}
+})
+  }
+
+</script>
 
 @push('js')
+  
 
 
     

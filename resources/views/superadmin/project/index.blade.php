@@ -210,6 +210,7 @@
                 <th>ID</th>
                 <th>Title</th>
                 <th>Author</th>
+                <th>Role</th>
                 <th>Is Approved</th>
                 <th>Status</th>
                 <th>Start Date</th>
@@ -226,6 +227,7 @@
                   <th>ID</th>
                   <th>Title</th>
                   <th>Author</th>
+                  <th>Role</th>
                   <th>Is Approved</th>
                   <th>Status</th>
                   <th>Start Date</th>
@@ -244,6 +246,7 @@
                   <td>{{$key + 1}}</td>
                   <td>{{str_limit($project->title,'15')}}</td>
                   <td>{{$project->user->name}}</td>
+                  <td>{{$project->user->role->name}}</td>
                   <td>
                   @if ($project->is_approved == true)
                         <span class="text-success">Approved</span>
@@ -265,16 +268,19 @@
                   {{-- <td>{{$project->created_at}}</td>
                   <td>{{$project->updated_at}}</td> --}}
                   <td style="text-align:center;">
-                  <a href="{{route('superadmin.project.edit',$project->id)}}" class="btn btn-primary btn-circle">
+                  <a href="{{route('superadmin.project.show',$project->id)}}" class="btn btn-primary btn-circle">
+                      <i class="fas fa-eye"></i>
+                    </a>
+                    <a href="{{route('superadmin.project.edit',$project->id)}}" class="btn btn-primary btn-circle">
                     <i class="fas fa-edit"></i>
                   </a>
-                    <button onclick="deleteUser({{$project->id}})"  class="btn btn-primary btn-circle" type="button">
+                    <button onclick="deleteProject({{$project->id}})"  class="btn btn-primary btn-circle" type="button">
                       <i class="fas fa-trash"></i>
                     </button>
-                  <form id="delete-form-{{$project->id}}" action="{{route('superadmin.project.destroy', $project->id)}}" method="POST">
-                    @csrf
-                    @method('DELETE')
-                  </form>
+                    <form id="delete-form-{{$project->id}}" action="{{route('superadmin.project.destroy', $project->id)}}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                      </form>
                   </td>
                   </tr>
                 @endforeach

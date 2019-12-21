@@ -226,7 +226,10 @@
                   <td>{{$key + 1}}</td>
                   <td>{{$member->name}}</td>
                   <td style="text-align:center;">
-                  <a href="{{route('superadmin.member.edit', $member->id)}}" class="btn btn-primary btn-circle">
+                      <a href="{{route('superadmin.member.show', $member->id)}}" class="btn btn-primary btn-circle">
+                          <i class="fas fa-eye"></i>
+                        </a>
+                    <a href="{{route('superadmin.member.edit', $member->id)}}" class="btn btn-primary btn-circle">
                     <i class="fas fa-edit"></i>
                   </a>
                     <button onclick="deleteUser({{$member->id}})"  class="btn btn-primary btn-circle" type="button">

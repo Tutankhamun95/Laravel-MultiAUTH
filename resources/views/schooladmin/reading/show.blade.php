@@ -189,15 +189,16 @@
 
 
     <!-- Page Heading -->
+    <!-- Page Heading -->
     <div class="card shadow mb-4">
         <!-- Card Header - Accordion -->
         <a href="#title" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
-          <h6 class="m-0 font-weight-bold text-primary">Project Title</h6>
+          <h6 class="m-0 font-weight-bold text-primary">Reading Title</h6>
         </a>
         <!-- Card Content - Collapse -->
         <div class="collapse hide" id="title">
           <div class="card-body">
-              {{$project->title}}
+              {{$reading->title}}
           </div>
         </div>
     </div>
@@ -210,37 +211,7 @@
         <!-- Card Content - Collapse -->
         <div class="collapse hide" id="name">
           <div class="card-body">
-              {{$project->user->name}}
-          </div>
-        </div>
-    </div>
-
-    <div class="card shadow mb-4">
-        <!-- Card Header - Accordion -->
-        <a href="#created" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
-          <h6 class="m-0 font-weight-bold text-primary">School</h6>
-        </a>
-        <!-- Card Content - Collapse -->
-        <div class="collapse hide" id="created">
-          <div class="card-body">
-              @foreach ($project->schools as $school)
-                  {{$school->name}}
-              @endforeach
-          </div>
-        </div>
-    </div>
-
-    <div class="card shadow mb-4">
-        <!-- Card Header - Accordion -->
-        <a href="#member" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
-          <h6 class="m-0 font-weight-bold text-primary">Member</h6>
-        </a>
-        <!-- Card Content - Collapse -->
-        <div class="collapse hide" id="member">
-          <div class="card-body">
-              @foreach ($project->members as $member)
-                  {{$member->name}}
-              @endforeach
+              {{$reading->user->name}}
           </div>
         </div>
     </div>
@@ -248,12 +219,12 @@
     <div class="card shadow mb-4">
         <!-- Card Header - Accordion -->
         <a href="#start" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
-          <h6 class="m-0 font-weight-bold text-primary">Start Date</h6>
+          <h6 class="m-0 font-weight-bold text-primary">DOI</h6>
         </a>
         <!-- Card Content - Collapse -->
         <div class="collapse hide" id="start">
           <div class="card-body">
-              {{$project->start_date}}
+              {{$reading->DOI}}
           </div>
         </div>
     </div>
@@ -261,12 +232,12 @@
     <div class="card shadow mb-4">
         <!-- Card Header - Accordion -->
         <a href="#end" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
-          <h6 class="m-0 font-weight-bold text-primary">End Date</h6>
+          <h6 class="m-0 font-weight-bold text-primary">Year</h6>
         </a>
         <!-- Card Content - Collapse -->
         <div class="collapse hide" id="end">
           <div class="card-body">
-              {{$project->end_date}}
+              {{$reading->year}}
           </div>
         </div>
     </div>
@@ -274,37 +245,17 @@
     <div class="card shadow mb-4">
         <!-- Card Header - Accordion -->
         <a href="#status" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
-          <h6 class="m-0 font-weight-bold text-primary">Approval</h6>
+          <h6 class="m-0 font-weight-bold text-primary">Type</h6>
         </a>
         <!-- Card Content - Collapse -->
-      <div class="collapse hide" id="status">
-        @if ($project->is_approved == false)
-          <button class="btn btn-danger pull-right">
-            <span>Not Approve</span>
-          </button>
-          @else
-          <button class="btn btn-success pull-right" disabled>
-              <i class="icons">Done</i>
-              <span>Approved</span>
-            </button>
-        @endif
-      </div>
-    </div>
-
-    <div class="card shadow mb-4">
-        <!-- Card Header - Accordion -->
-        <a href="#approved" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
-          <h6 class="m-0 font-weight-bold text-primary">Status</h6>
-        </a>
-        <!-- Card Content - Collapse -->
-        <div class="collapse hide" id="approved">
+        <div class="collapse hide" id="status">
           <div class="card-body">
-              {{$project->status}}
+              {{$reading->type}}
           </div>
         </div>
     </div>
 
-    <a class="btn btn-danger" href="{{route('superadmin.project.index')}}">Back</a>
+    <a class="btn btn-danger" href="{{route('schooladmin.reading.index')}}">Back</a>
     <button type="submit" class="btn btn-primary">Save</button>
 
   </div>
