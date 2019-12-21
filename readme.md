@@ -1,6 +1,6 @@
 Hello,
 
-To Register, go to Register and Register as a user.
+To Register, go to Register and Register as a student.
 
 To Login as a Student, you can register first or login using the credentials below.
 
